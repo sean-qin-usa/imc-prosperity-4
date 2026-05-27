@@ -33,7 +33,7 @@ The full version of that framework, with the signal-hunting checklist I accumula
 
 It's a record of my own work, with the actual backtest numbers, the actual ship files, and the actual mistakes. Where another team's published writeup shaped what I tried, I cite it as theirs — see [lessons_learned.md](./lessons_learned.md) for those comparisons.
 
-I am not claiming this work was the greatest and/or cleanest. Natural, as I did not get rank 1. The [context page](./context.md) covers the limiting factors. The [lessons-learned page](./lessons_learned.md) covers what I'd change.
+I am not claiming this work was the greatest and/or cleanest. Natural, as I did not get rank 1. The [context page](./context.md) covers the limiting factors. The [lessons-learned page](./lessons_learned.md) covers what I'd change. Overall though, I am proud of what I did throughout this competition and look forward to learning and doing more in the future.
 
 ## Repo layout
 
