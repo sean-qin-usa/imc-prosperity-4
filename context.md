@@ -5,7 +5,7 @@ A short, honest note on the constraints around this entry. These are context, no
 ## Limiting factors
 
 - **Finals overlap.** Rounds 1 and 2 (April 14–20) overlapped directly with my finals. I was juggling between submission windows and exams; the R1 manual challenge in particular got the shallow treatment because it landed on the worst day.
-- **Partner withdrew during the competition.** I went into Prosperity 4 as one half of a two-person team. My partner stepped out partway through the round 1 → round 2 transition. The work from round 2 onward is solo, which shows up most visibly in round 3 — the 100+ versions of `combined_ship_v*.py` are partly an artifact of running parallel-experimentation discipline alone instead of pair-style.
+- **Solo from day one.** I went into Prosperity 4 as one half of a two-person team. My partner withdrew **before round 1 even opened**, so every shipped algorithm — round 1 onward — was solo. Most visible artifact: the 100+ versions of `combined_ship_v*.py` in round 3, parallel-experimentation discipline run alone instead of pair-style.
 - **Tooling built mid-competition.** The local-to-live calibration harness, the visualizer, the jmerle-style backtester wrapper, and the calibration-aware ablation scripts were all built during the competition itself. Useful in hindsight, expensive in time during.
 
 ## What this entry is

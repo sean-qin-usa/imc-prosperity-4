@@ -2,13 +2,19 @@
 
 These are the things I'd actually change if I ran IMC Prosperity again, ordered roughly by how much PnL I think they were worth. References to other teams' published writeups are cited explicitly; their work is their work.
 
-## 0. Knowledge wasn't the gap. Execution and calibration were.
+## 0. Knowledge wasn't the gap. Game-fundamentals understanding was.
 
 Reading the top teams' published writeups in retrospect — Leo-Hawking, zainy-477, rmtf1111, Deepjot Grewal, Alex Stoeveken — there isn't a technique on their lists that I didn't already know. Black-Scholes on a voucher chain, IV-residual mean reversion, microprice fair value, walked-spread rebound, family-pair-trade overlays, rank-bid manual challenges, generative-process classification — all of that was in my heads-up notes before round 1. I built the [`SIGNALS_PLAYBOOK.md`](./code/SIGNALS_PLAYBOOK.md) precisely to enumerate those approaches up front.
 
-The gap was not knowledge. The gap was *backtesting calibration discipline* — knowing which sleeve's local PnL would survive contact with the live exchange, building the conversion calibration before I needed it, capping ablation time once a sleeve's conversion ratio dropped below the threshold of "this is real alpha." Items §1 and §4 below are the concrete instances; this section is the meta-lesson that ties them together. The teams that beat me ran the same playbook I did — they just had cleaner backtest-to-live machinery and shipped earlier.
+The gap wasn't quant technique. The gap was **understanding the game** at a fundamental level. I understood general market patterns well enough to make stable returns in practice; I didn't think critically enough about how Prosperity's contest structure would penalize that and reward something else.
 
-The other side of this lesson, separately, is round 4's manual challenge.
+Specifically, three things I knew in the abstract but didn't internalize until after the fact:
+
+1. **The contest is not a real market.** It's a 3-day-data point estimate against a curated seed, with IMC's proctors picking seeds adversarially to defang AI-assisted EV-maximization (§0b, §0c below).
+2. **Backtest-to-live conversion is asymmetric across sleeve classes and is the only number that matters at submission time** (§1, §4 below).
+3. **Structural strategy classes that are robust across seeds beat parameter-optimal strategies that are robust within one seed.** I knew this; I didn't ship it (§0d, §3 below).
+
+The teams that beat me ran the same playbook I did. They just had a sharper sense of the meta-game and shipped the structurally correct answer even when their local backtest didn't validate it. §0b through §7 are the concrete instances.
 
 ## 0b. Variance management beats expected-value maximization on a single realized path
 
@@ -25,6 +31,32 @@ Concretely, what I'd do differently:
 3. **Treat the long-run-optimal answer as the prior, not the answer.** The actual answer is the optimal answer plus a humility discount for the seed-of-the-day risk.
 
 This is the same lesson as the algo-side calibration story (§0): in both cases I had the technique right, and the gap was about understanding that the local/long-run number isn't what's scored.
+
+## 0c. The 3-day-data problem — backtesting on a single curated seed
+
+Every round shipped with three days of historical CSVs. My backtesters captured execution logic correctly. They could not tell me what the seed-of-the-day in the live submission would look like, and in a contest where the entire score is one realized path against an adversarially-chosen seed, the seed dominates.
+
+Concretely:
+
+- A 3-day local backtest is a point estimate against a fixed sample. Variance across plausible seeds is not sampled, so a "we beat the prior best by 5 %" backtest delta is statistically meaningless against the live distribution.
+- IMC has every incentive to pick seeds that punish strategies clustered around "average market behavior" — that's where most teams' backtests over-fit and where AI-assisted EV-maximization concentrates. The R4 Aether Crystal manual (see §0b) is the cleanest illustration: my Black-Scholes EV-optimal allocation made zero PnL against the seed they actually chose.
+- The right response is **structural**. Strategies whose edge is robust *across* seeds — pure carry, anchored mean-reversion, family-pair-trades that neutralize broad factor exposure — beat strategies whose edge depends on the seed-specific noise (most of the variant-laden version ladders I built in R3).
+
+I built ablation ladders as if they sampled the live PnL distribution. They didn't. The strategies that survive seed risk are the ones with the cleanest first-principles generative story, not the ones with the highest local backtest. I knew this conceptually before round 1. I didn't behave like I knew it until after the competition was over.
+
+A separate consequence: stable-returns approaches that work in practice don't necessarily *rank* high in a contest where the scoring is one realized path. Practical trading optimizes for expectation across a distribution of paths; this competition scored you on one. Optimizing for stable returns the way I would on real funds is the wrong objective. Lesson is to model the contest mechanics explicitly, not to assume "good trading" translates to "good contest result."
+
+## 0d. I had the right structural answers and didn't ship them
+
+This is the one that stings most, and it's the practical face of §0–§0c.
+
+For at least three rounds I built or designed the structurally correct strategy, and shipped the safer, lower-conviction one instead because the first-cut local backtest didn't validate the better one:
+
+- **R5 family-pair-trade overlay** — `traders/round5/ll_pair_*`. Top teams I've since read up on shipped exactly this structure. Family-beta neutralization on a 50-product universe with 10 thematic clusters is *structurally* the dominant approach; its edge shows up as variance reduction, not as a higher first-moment PnL on a single seed. The first-cut backtest is the wrong evaluation tool for a strategy whose advantage is variance reduction. I built it, tested it, rejected it on a backtest delta, and shipped the safer directional ship instead.
+- **R4 regime-gated VFE sleeve** — identified the cross-sleeve interaction problem during the round (Mark-67 follow fighting the existing MR sleeve). Designed the unified-with-regime-gate fix. Didn't have the bandwidth or the conviction to ship it under the time pressure (see [`round_4.md`](./round_4.md)).
+- **R3 three-way basis arb** — VFE / VEV_4000 / VEV_4500 are three parallel measurements of the same underlying with std < 1 tick. Documented, scoped, never built.
+
+The pattern is the same in every case: I had the right structural instinct, and I chose the safer, locally-validated answer. **The gap is conviction, not insight.** And conviction is what game-fundamentals understanding gives you — knowing that the local backtest isn't the live score, knowing that variance reduction is what beats an adversarial seed, knowing that "first-cut backtest delta" isn't the right rubric for ranking-not-returns contests. The teams that beat me didn't have better ideas. They had the discipline to ship their ideas under contest mechanics I now wish I'd modeled better.
 
 ## 1. Local backtester PnL is not live PnL — and the gap is asymmetric across sleeve classes
 
