@@ -6,7 +6,7 @@ These are the things I'd actually change if I ran IMC Prosperity again, ordered 
 
 Reading the top teams' writeups after the fact (Leo-Hawking, zainy-477, rmtf1111, Deepjot Grewal, Alex Stoeveken), there wasn't a single technique on their lists I didn't already know going in. Black-Scholes on a voucher chain, IV-residual mean reversion, microprice fair value, walked-spread rebound, family-pair-trade overlays, rank-bid manual challenges, generative-process classification — it was all in my notes before round 1, and [`SIGNALS_PLAYBOOK.md`](./code/SIGNALS_PLAYBOOK.md) is where I'd laid it out up front.
 
-The gap wasn't quant research. It was understanding the game itself. I knew the market patterns well enough to make stable returns in real practice. What I didn't think hard enough about was how Prosperity's contest structure would penalize that and reward the opposite.
+The gap wasn't market research. It was understanding the game itself. I knew the market patterns well enough to make stable returns in real practice. What I didn't think hard enough about was how Prosperity's contest structure would penalize that and reward the opposite.
 
 Four things I knew in the abstract but didn't internalize until afterward:
 
