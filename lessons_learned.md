@@ -74,7 +74,7 @@ My strategies were tuned implicitly for a real-world fee structure — wider pas
 
 This is a third specific instance of the §0 meta-lesson ("game-fundamentals understanding was the gap"). I optimized for stable, real-world-deployable trading and got penalized for it in a contest that explicitly rewards the opposite. The right move was to **explicitly model the cost structure of the contest as the starting point** and let the constraints (or lack of them) inform the strategy class — not to default to "what would I run on a real exchange" and hope the contest mechanics aligned.
 
-If I'd internalized this on day one, the R1 ACO/IPR sizes would have been larger and the passive offsets tighter; the R3 HYDROGEL MM would have run at the top of its size plateau (or above it) rather than the conservative middle; and the R5 directional ship would have leaned harder into the take side instead of the imbalance-gated passive quoting. Most of those changes are visible in the backtests as a 10–20 % PnL improvement that I left on the floor because I was sizing for a world where every fill cost something.
+If I'd internalized this on day one, the R1 ACO/IPR sizes would have been larger and the passive offsets tighter; the R3 HYDROGEL MM would have run at the top of its size plateau (or above it) rather than the conservative middle; and the R5 directional ship would have leaned harder into the take side instead of the imbalance-gated passive quoting. Most of those changes are visible in the backtests as a 10–20 % PnL improvement that I left on the floor because I was sizing for a world where every fill cost something, without fully stopping to think about why.
 
 ## 1. Local backtester PnL is not live PnL — and the gap is asymmetric across sleeve classes
 
