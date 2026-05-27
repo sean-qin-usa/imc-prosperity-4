@@ -8,8 +8,8 @@ This repo is a writeup of my entry in **IMC Prosperity 4** (the 2026 edition, ru
 |---|---|
 | The actual files I submitted, one per round | [`submissions/`](./submissions/) |
 | What I built and why, round by round | [`round_1.md`](./round_1.md) → [`round_5.md`](./round_5.md) |
-| What I'd change — the strongest pitch | [`lessons_learned.md`](./lessons_learned.md) |
-| Background and limiting factors | [`context.md`](./context.md) |
+| Background, limiting factors, thoughts | [`context.md`](./context.md) |
+| What I'd change for the next competition | [`lessons_learned.md`](./lessons_learned.md) |
 | The full code snapshot (raw working repo) | [`code/`](./code/) |
 
 ## Quick links
