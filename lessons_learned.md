@@ -13,9 +13,9 @@ Specifically, four things I knew in the abstract but didn't internalize until af
 1. **The contest is not a real market.** It's a 3-day-data point estimate against a curated seed, with IMC's proctors picking seeds adversarially to defang AI-assisted EV-maximization (§0b, §0c below).
 2. **Backtest-to-live conversion is asymmetric across sleeve classes and is the only number that matters at submission time** (§1, §4 below).
 3. **Structural strategy classes that are robust across seeds beat parameter-optimal strategies that are robust within one seed.** I knew this; I didn't ship it (§0d, §3 below).
-4. **Zero transaction fees flip which MM strategy class dominates.** Tight high-volume quoting is real-world unprofitable but contest-optimal here; I sized for the real world (§0e below).
+4. **LARGEST ONE: ZERO TRANSACTION FEES flip which MM strategy class dominates.** Tight high-volume quoting as used by many top competitors is simply real-world unprofitable (and disregarded by me internally when making conscious final ships) but contest-optimal here; I sized for the real world instead of making decisions based on the challenge at hand(§0e below).
 
-The teams that beat me ran the same playbook I did. They just had a sharper sense of the meta-game and shipped the structurally correct answer even when their local backtest didn't validate it. §0b through §7 are the concrete instances.
+The teams that beat me ran the same general playbook I did. They just had a sharper sense of the meta-game and shipped the structurally correct answer even when their local backtest didn't validate it. §0b through §7 are the concrete instances.
 
 ## 0b. Variance management beats expected-value maximization on a single realized path
 
