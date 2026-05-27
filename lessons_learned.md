@@ -51,7 +51,7 @@ A separate consequence: stable-returns approaches that work in practice don't ne
 
 This is the one that stings most, and it's the practical face of §0–§0c.
 
-For the final three rounds, I quite literally built each of the competition's most optimal strategies, yet shipped the safer, lower-conviction one instead because the first-cut local backtest didn't validate the better one:
+For the final three rounds, I discovered or literally built each of the competition's most optimal strategies, yet shipped the safer, lower-conviction one instead because the first-cut local backtest didn't validate the better one:
 
 - **R5 family-pair-trade overlay** — `traders/round5/ll_pair_*`. Top teams I've since read up on shipped exactly this structure. Family-beta neutralization on a 50-product universe with 10 thematic clusters is *structurally* the dominant approach; its edge shows up as variance reduction, not as a higher first-moment PnL on a single seed. The first-cut backtest is the wrong evaluation tool for a strategy whose advantage is variance reduction. I built it, tested it, rejected it on a backtest delta, and shipped the safer directional ship instead.
 - **R4 regime-gated VFE sleeve** — identified the cross-sleeve interaction problem during the round (Mark-67 follow fighting the existing MR sleeve). Designed the unified-with-regime-gate fix. Didn't have the bandwidth or the conviction to ship it under the time pressure (see [`round_4.md`](./round_4.md)).
