@@ -1,0 +1,2231 @@
+{
+  "inputs": [
+    {
+      "official_log": "/Users/sean_tsu_/Downloads/138109/138109.log",
+      "strategy": "/Users/sean_tsu_/Downloads/138109/138109.py"
+    },
+    {
+      "official_log": "/Users/sean_tsu_/Downloads/284364/284364.log",
+      "strategy": "/Users/sean_tsu_/Downloads/284364/284364.py"
+    }
+  ],
+  "inside_spread": {
+    "ASH_COATED_OSMIUM": {
+      "default_fill_ratio": 0.2979855365026127,
+      "default_hit_probability": 0.02741290691033695,
+      "distances": {
+        "1": {
+          "fill_count": 95,
+          "fill_ratio": 0.2989061598785405,
+          "hit_probability": 0.027409117137911138,
+          "order_count": 3466
+        },
+        "2": {
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 10
+        },
+        "3": {
+          "fill_count": 1,
+          "fill_ratio": 0.21052631578947367,
+          "hit_probability": 0.16666666666666666,
+          "order_count": 6
+        },
+        "4": {
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 9
+        },
+        "5": {
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 9
+        },
+        "6": {
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 2
+        }
+      },
+      "fill_count": 96,
+      "fill_ratio": 0.2979855365026127,
+      "hit_probability": 0.02741290691033695,
+      "order_count": 3502,
+      "sides": {
+        "buy": {
+          "distances": {
+            "1": {
+              "fill_count": 44,
+              "fill_ratio": 0.28606351831003535,
+              "hit_probability": 0.025776215582893967,
+              "order_count": 1707
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            },
+            "3": {
+              "fill_count": 1,
+              "fill_ratio": 0.21052631578947367,
+              "hit_probability": 0.5,
+              "order_count": 2
+            },
+            "4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 7
+            },
+            "5": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 5
+            }
+          },
+          "fill_count": 45,
+          "fill_ratio": 0.2843849138095784,
+          "hit_probability": 0.0261172373766686,
+          "order_count": 1723,
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 45,
+              "fill_ratio": 0.2843849138095784,
+              "hit_probability": 0.0261172373766686,
+              "order_count": 1723
+            }
+          }
+        },
+        "sell": {
+          "distances": {
+            "1": {
+              "fill_count": 51,
+              "fill_ratio": 0.309986085937643,
+              "hit_probability": 0.028993746446844798,
+              "order_count": 1759
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8
+            },
+            "3": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 4
+            },
+            "4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            },
+            "5": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 4
+            },
+            "6": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          },
+          "fill_count": 51,
+          "fill_ratio": 0.309986085937643,
+          "hit_probability": 0.02866779089376054,
+          "order_count": 1779,
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 51,
+              "fill_ratio": 0.309986085937643,
+              "hit_probability": 0.02866779089376054,
+              "order_count": 1779
+            }
+          }
+        }
+      },
+      "size_buckets": {
+        "gt_12": {
+          "fill_count": 96,
+          "fill_ratio": 0.2979855365026127,
+          "hit_probability": 0.02741290691033695,
+          "order_count": 3502
+        }
+      },
+      "spreads": {
+        "10": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 51
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 51,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 27
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 27,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 27
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 24
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 24,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 24
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 51
+            }
+          }
+        },
+        "11": {
+          "distances": {
+            "1": {
+              "fill_count": 1,
+              "fill_ratio": 0.47058823529411764,
+              "hit_probability": 0.034482758620689655,
+              "order_count": 29
+            }
+          },
+          "fill_count": 1,
+          "fill_ratio": 0.47058823529411764,
+          "hit_probability": 0.034482758620689655,
+          "order_count": 29,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 9
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 9,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 9
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.47058823529411764,
+                  "hit_probability": 0.05,
+                  "order_count": 20
+                }
+              },
+              "fill_count": 1,
+              "fill_ratio": 0.47058823529411764,
+              "hit_probability": 0.05,
+              "order_count": 20,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.47058823529411764,
+                  "hit_probability": 0.05,
+                  "order_count": 20
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 1,
+              "fill_ratio": 0.47058823529411764,
+              "hit_probability": 0.034482758620689655,
+              "order_count": 29
+            }
+          }
+        },
+        "12": {
+          "distances": {
+            "1": {
+              "fill_count": 1,
+              "fill_ratio": 0.47368421052631576,
+              "hit_probability": 0.07142857142857142,
+              "order_count": 14
+            }
+          },
+          "fill_count": 1,
+          "fill_ratio": 0.47368421052631576,
+          "hit_probability": 0.07142857142857142,
+          "order_count": 14,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 8
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 8
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.47368421052631576,
+                  "hit_probability": 0.16666666666666666,
+                  "order_count": 6
+                }
+              },
+              "fill_count": 1,
+              "fill_ratio": 0.47368421052631576,
+              "hit_probability": 0.16666666666666666,
+              "order_count": 6,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.47368421052631576,
+                  "hit_probability": 0.16666666666666666,
+                  "order_count": 6
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 1,
+              "fill_ratio": 0.47368421052631576,
+              "hit_probability": 0.07142857142857142,
+              "order_count": 14
+            }
+          }
+        },
+        "13": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 12
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 12,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 5
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 5,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 5
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 7
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 7,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 7
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 12
+            }
+          }
+        },
+        "16": {
+          "distances": {
+            "1": {
+              "fill_count": 65,
+              "fill_ratio": 0.2999287906795647,
+              "hit_probability": 0.02878653675819309,
+              "order_count": 2258
+            }
+          },
+          "fill_count": 65,
+          "fill_ratio": 0.2999287906795647,
+          "hit_probability": 0.02878653675819309,
+          "order_count": 2258,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 31,
+                  "fill_ratio": 0.2820867594349568,
+                  "hit_probability": 0.02802893309222423,
+                  "order_count": 1106
+                }
+              },
+              "fill_count": 31,
+              "fill_ratio": 0.2820867594349568,
+              "hit_probability": 0.02802893309222423,
+              "order_count": 1106,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 31,
+                  "fill_ratio": 0.2820867594349568,
+                  "hit_probability": 0.02802893309222423,
+                  "order_count": 1106
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 34,
+                  "fill_ratio": 0.31619652504964835,
+                  "hit_probability": 0.029513888888888888,
+                  "order_count": 1152
+                }
+              },
+              "fill_count": 34,
+              "fill_ratio": 0.31619652504964835,
+              "hit_probability": 0.029513888888888888,
+              "order_count": 1152,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 34,
+                  "fill_ratio": 0.31619652504964835,
+                  "hit_probability": 0.029513888888888888,
+                  "order_count": 1152
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 65,
+              "fill_ratio": 0.2999287906795647,
+              "hit_probability": 0.02878653675819309,
+              "order_count": 2258
+            }
+          }
+        },
+        "17": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 5
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 5,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 3,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 5
+            }
+          }
+        },
+        "18": {
+          "distances": {
+            "1": {
+              "fill_count": 9,
+              "fill_ratio": 0.2813037495700034,
+              "hit_probability": 0.018518518518518517,
+              "order_count": 486
+            }
+          },
+          "fill_count": 9,
+          "fill_ratio": 0.2813037495700034,
+          "hit_probability": 0.018518518518518517,
+          "order_count": 486,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 6,
+                  "fill_ratio": 0.29824561403508776,
+                  "hit_probability": 0.024896265560165973,
+                  "order_count": 241
+                }
+              },
+              "fill_count": 6,
+              "fill_ratio": 0.29824561403508776,
+              "hit_probability": 0.024896265560165973,
+              "order_count": 241,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 6,
+                  "fill_ratio": 0.29824561403508776,
+                  "hit_probability": 0.024896265560165973,
+                  "order_count": 241
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.2474200206398349,
+                  "hit_probability": 0.012244897959183673,
+                  "order_count": 245
+                }
+              },
+              "fill_count": 3,
+              "fill_ratio": 0.2474200206398349,
+              "hit_probability": 0.012244897959183673,
+              "order_count": 245,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.2474200206398349,
+                  "hit_probability": 0.012244897959183673,
+                  "order_count": 245
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 9,
+              "fill_ratio": 0.2813037495700034,
+              "hit_probability": 0.018518518518518517,
+              "order_count": 486
+            }
+          }
+        },
+        "19": {
+          "distances": {
+            "1": {
+              "fill_count": 16,
+              "fill_ratio": 0.3102613304093567,
+              "hit_probability": 0.0350109409190372,
+              "order_count": 457
+            }
+          },
+          "fill_count": 16,
+          "fill_ratio": 0.3102613304093567,
+          "hit_probability": 0.0350109409190372,
+          "order_count": 457,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 7,
+                  "fill_ratio": 0.2932330827067669,
+                  "hit_probability": 0.03125,
+                  "order_count": 224
+                }
+              },
+              "fill_count": 7,
+              "fill_ratio": 0.2932330827067669,
+              "hit_probability": 0.03125,
+              "order_count": 224,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 7,
+                  "fill_ratio": 0.2932330827067669,
+                  "hit_probability": 0.03125,
+                  "order_count": 224
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 9,
+                  "fill_ratio": 0.32350552306692654,
+                  "hit_probability": 0.03862660944206009,
+                  "order_count": 233
+                }
+              },
+              "fill_count": 9,
+              "fill_ratio": 0.32350552306692654,
+              "hit_probability": 0.03862660944206009,
+              "order_count": 233,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 9,
+                  "fill_ratio": 0.32350552306692654,
+                  "hit_probability": 0.03862660944206009,
+                  "order_count": 233
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 16,
+              "fill_ratio": 0.3102613304093567,
+              "hit_probability": 0.0350109409190372,
+              "order_count": 457
+            }
+          }
+        },
+        "21": {
+          "distances": {
+            "1": {
+              "fill_count": 3,
+              "fill_ratio": 0.15350877192982457,
+              "hit_probability": 0.025423728813559324,
+              "order_count": 118
+            }
+          },
+          "fill_count": 3,
+          "fill_ratio": 0.15350877192982457,
+          "hit_probability": 0.025423728813559324,
+          "order_count": 118,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 59
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 59,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 59
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.15350877192982457,
+                  "hit_probability": 0.05084745762711865,
+                  "order_count": 59
+                }
+              },
+              "fill_count": 3,
+              "fill_ratio": 0.15350877192982457,
+              "hit_probability": 0.05084745762711865,
+              "order_count": 59,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.15350877192982457,
+                  "hit_probability": 0.05084745762711865,
+                  "order_count": 59
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 3,
+              "fill_ratio": 0.15350877192982457,
+              "hit_probability": 0.025423728813559324,
+              "order_count": 118
+            }
+          }
+        },
+        "5": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            },
+            "3": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            },
+            "4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 5
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 7,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                },
+                "3": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                },
+                "4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 5
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 7,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 7
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 7
+            }
+          }
+        },
+        "6": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 10
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8
+            },
+            "3": {
+              "fill_count": 1,
+              "fill_ratio": 0.21052631578947367,
+              "hit_probability": 0.3333333333333333,
+              "order_count": 3
+            },
+            "4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 4
+            },
+            "5": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8
+            }
+          },
+          "fill_count": 1,
+          "fill_ratio": 0.21052631578947367,
+          "hit_probability": 0.030303030303030304,
+          "order_count": 33,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 8
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "3": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.21052631578947367,
+                  "hit_probability": 1.0,
+                  "order_count": 1
+                },
+                "4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "5": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 5
+                }
+              },
+              "fill_count": 1,
+              "fill_ratio": 0.21052631578947367,
+              "hit_probability": 0.05555555555555555,
+              "order_count": 18,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.21052631578947367,
+                  "hit_probability": 0.05555555555555555,
+                  "order_count": 18
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 6
+                },
+                "3": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "5": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 15,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 15
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 1,
+              "fill_ratio": 0.21052631578947367,
+              "hit_probability": 0.030303030303030304,
+              "order_count": 33
+            }
+          }
+        },
+        "7": {
+          "distances": {
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            },
+            "3": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            },
+            "5": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            },
+            "6": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 7,
+          "sides": {
+            "sell": {
+              "distances": {
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "3": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "5": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                },
+                "6": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 7,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 7
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 7
+            }
+          }
+        },
+        "8": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 2,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          }
+        },
+        "9": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 23
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 23,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 15
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 15,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 15
+                }
+              }
+            },
+            "sell": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 8
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8,
+              "size_buckets": {
+                "gt_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 8
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "gt_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 23
+            }
+          }
+        }
+      }
+    },
+    "INTARIAN_PEPPER_ROOT": {
+      "default_fill_ratio": 0.7851190476190476,
+      "default_hit_probability": 0.012681159420289856,
+      "distances": {
+        "1": {
+          "fill_count": 9,
+          "fill_ratio": 0.9027777777777778,
+          "hit_probability": 0.014492753623188406,
+          "order_count": 621
+        },
+        "2": {
+          "fill_count": 5,
+          "fill_ratio": 0.5733333333333334,
+          "hit_probability": 0.010351966873706004,
+          "order_count": 483
+        }
+      },
+      "fill_count": 14,
+      "fill_ratio": 0.7851190476190476,
+      "hit_probability": 0.012681159420289856,
+      "order_count": 1104,
+      "sides": {
+        "buy": {
+          "distances": {
+            "1": {
+              "fill_count": 9,
+              "fill_ratio": 0.9027777777777778,
+              "hit_probability": 0.014492753623188406,
+              "order_count": 621
+            },
+            "2": {
+              "fill_count": 5,
+              "fill_ratio": 0.5733333333333334,
+              "hit_probability": 0.010351966873706004,
+              "order_count": 483
+            }
+          },
+          "fill_count": 14,
+          "fill_ratio": 0.7851190476190476,
+          "hit_probability": 0.012681159420289856,
+          "order_count": 1104,
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 7,
+              "fill_ratio": 0.6416666666666667,
+              "hit_probability": 0.010416666666666666,
+              "order_count": 672
+            },
+            "le_4": {
+              "fill_count": 7,
+              "fill_ratio": 0.9285714285714286,
+              "hit_probability": 0.016203703703703703,
+              "order_count": 432
+            }
+          }
+        }
+      },
+      "size_buckets": {
+        "5_12": {
+          "fill_count": 7,
+          "fill_ratio": 0.6416666666666667,
+          "hit_probability": 0.010416666666666666,
+          "order_count": 672
+        },
+        "le_4": {
+          "fill_count": 7,
+          "fill_ratio": 0.9285714285714286,
+          "hit_probability": 0.016203703703703703,
+          "order_count": 432
+        }
+      },
+      "spreads": {
+        "10": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 4
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 6,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 4
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 6,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 3
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 3
+            }
+          }
+        },
+        "13": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            },
+            "2": {
+              "fill_count": 3,
+              "fill_ratio": 0.5666666666666668,
+              "hit_probability": 0.010273972602739725,
+              "order_count": 292
+            }
+          },
+          "fill_count": 3,
+          "fill_ratio": 0.5666666666666668,
+          "hit_probability": 0.010238907849829351,
+          "order_count": 293,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                },
+                "2": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.5666666666666668,
+                  "hit_probability": 0.010273972602739725,
+                  "order_count": 292
+                }
+              },
+              "fill_count": 3,
+              "fill_ratio": 0.5666666666666668,
+              "hit_probability": 0.010238907849829351,
+              "order_count": 293,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.5666666666666668,
+                  "hit_probability": 0.014492753623188406,
+                  "order_count": 207
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 86
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 3,
+              "fill_ratio": 0.5666666666666668,
+              "hit_probability": 0.014492753623188406,
+              "order_count": 207
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 86
+            }
+          }
+        },
+        "14": {
+          "distances": {
+            "1": {
+              "fill_count": 3,
+              "fill_ratio": 0.7916666666666666,
+              "hit_probability": 0.008,
+              "order_count": 375
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 31
+            }
+          },
+          "fill_count": 3,
+          "fill_ratio": 0.7916666666666666,
+          "hit_probability": 0.007389162561576354,
+          "order_count": 406,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.7916666666666666,
+                  "hit_probability": 0.008,
+                  "order_count": 375
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 31
+                }
+              },
+              "fill_count": 3,
+              "fill_ratio": 0.7916666666666666,
+              "hit_probability": 0.007389162561576354,
+              "order_count": 406,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.625,
+                  "hit_probability": 0.004048582995951417,
+                  "order_count": 247
+                },
+                "le_4": {
+                  "fill_count": 2,
+                  "fill_ratio": 0.875,
+                  "hit_probability": 0.012578616352201259,
+                  "order_count": 159
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 1,
+              "fill_ratio": 0.625,
+              "hit_probability": 0.004048582995951417,
+              "order_count": 247
+            },
+            "le_4": {
+              "fill_count": 2,
+              "fill_ratio": 0.875,
+              "hit_probability": 0.012578616352201259,
+              "order_count": 159
+            }
+          }
+        },
+        "15": {
+          "distances": {
+            "1": {
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.023255813953488372,
+              "order_count": 43
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            }
+          },
+          "fill_count": 1,
+          "fill_ratio": 1.0,
+          "hit_probability": 0.022727272727272728,
+          "order_count": 44,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 1,
+                  "fill_ratio": 1.0,
+                  "hit_probability": 0.023255813953488372,
+                  "order_count": 43
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                }
+              },
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.022727272727272728,
+              "order_count": 44,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 1,
+                  "fill_ratio": 1.0,
+                  "hit_probability": 0.037037037037037035,
+                  "order_count": 27
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 17
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.037037037037037035,
+              "order_count": 27
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 17
+            }
+          }
+        },
+        "16": {
+          "distances": {
+            "2": {
+              "fill_count": 1,
+              "fill_ratio": 0.5,
+              "hit_probability": 0.007936507936507936,
+              "order_count": 126
+            }
+          },
+          "fill_count": 1,
+          "fill_ratio": 0.5,
+          "hit_probability": 0.007936507936507936,
+          "order_count": 126,
+          "sides": {
+            "buy": {
+              "distances": {
+                "2": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.5,
+                  "hit_probability": 0.007936507936507936,
+                  "order_count": 126
+                }
+              },
+              "fill_count": 1,
+              "fill_ratio": 0.5,
+              "hit_probability": 0.007936507936507936,
+              "order_count": 126,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.5,
+                  "hit_probability": 0.011111111111111112,
+                  "order_count": 90
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 36
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 1,
+              "fill_ratio": 0.5,
+              "hit_probability": 0.011111111111111112,
+              "order_count": 90
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 36
+            }
+          }
+        },
+        "17": {
+          "distances": {
+            "1": {
+              "fill_count": 3,
+              "fill_ratio": 0.9166666666666666,
+              "hit_probability": 0.02631578947368421,
+              "order_count": 114
+            },
+            "2": {
+              "fill_count": 1,
+              "fill_ratio": 0.6666666666666666,
+              "hit_probability": 0.09090909090909091,
+              "order_count": 11
+            }
+          },
+          "fill_count": 4,
+          "fill_ratio": 0.8541666666666666,
+          "hit_probability": 0.032,
+          "order_count": 125,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.9166666666666666,
+                  "hit_probability": 0.02631578947368421,
+                  "order_count": 114
+                },
+                "2": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.6666666666666666,
+                  "hit_probability": 0.09090909090909091,
+                  "order_count": 11
+                }
+              },
+              "fill_count": 4,
+              "fill_ratio": 0.8541666666666666,
+              "hit_probability": 0.032,
+              "order_count": 125,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 1,
+                  "fill_ratio": 0.6666666666666666,
+                  "hit_probability": 0.020833333333333332,
+                  "order_count": 48
+                },
+                "le_4": {
+                  "fill_count": 3,
+                  "fill_ratio": 0.9166666666666666,
+                  "hit_probability": 0.03896103896103896,
+                  "order_count": 77
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 1,
+              "fill_ratio": 0.6666666666666666,
+              "hit_probability": 0.020833333333333332,
+              "order_count": 48
+            },
+            "le_4": {
+              "fill_count": 3,
+              "fill_ratio": 0.9166666666666666,
+              "hit_probability": 0.03896103896103896,
+              "order_count": 77
+            }
+          }
+        },
+        "18": {
+          "distances": {
+            "1": {
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.017857142857142856,
+              "order_count": 56
+            }
+          },
+          "fill_count": 1,
+          "fill_ratio": 1.0,
+          "hit_probability": 0.017857142857142856,
+          "order_count": 56,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 1,
+                  "fill_ratio": 1.0,
+                  "hit_probability": 0.017857142857142856,
+                  "order_count": 56
+                }
+              },
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.017857142857142856,
+              "order_count": 56,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 19
+                },
+                "le_4": {
+                  "fill_count": 1,
+                  "fill_ratio": 1.0,
+                  "hit_probability": 0.02702702702702703,
+                  "order_count": 37
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 19
+            },
+            "le_4": {
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.02702702702702703,
+              "order_count": 37
+            }
+          }
+        },
+        "19": {
+          "distances": {
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 8,
+          "sides": {
+            "buy": {
+              "distances": {
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 8
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 6
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 6
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          }
+        },
+        "20": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 9
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 11,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 9
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 11,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 8
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 8
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 3
+            }
+          }
+        },
+        "21": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 9
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 9,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 9
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 9,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 5
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 4
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 5
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 4
+            }
+          }
+        },
+        "3": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 3
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 3,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 3,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          }
+        },
+        "4": {
+          "distances": {
+            "1": {
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.5,
+              "order_count": 2
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          },
+          "fill_count": 1,
+          "fill_ratio": 1.0,
+          "hit_probability": 0.25,
+          "order_count": 4,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 1,
+                  "fill_ratio": 1.0,
+                  "hit_probability": 0.5,
+                  "order_count": 2
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              },
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.25,
+              "order_count": 4,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "le_4": {
+                  "fill_count": 1,
+                  "fill_ratio": 1.0,
+                  "hit_probability": 0.5,
+                  "order_count": 2
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            },
+            "le_4": {
+              "fill_count": 1,
+              "fill_ratio": 1.0,
+              "hit_probability": 0.5,
+              "order_count": 2
+            }
+          }
+        },
+        "5": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 2,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          }
+        },
+        "6": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 2,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 1
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 1
+            }
+          }
+        },
+        "9": {
+          "distances": {
+            "1": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 2
+            },
+            "2": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 7
+            }
+          },
+          "fill_count": 0,
+          "fill_ratio": 0.0,
+          "hit_probability": 0.0,
+          "order_count": 9,
+          "sides": {
+            "buy": {
+              "distances": {
+                "1": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 2
+                },
+                "2": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 7
+                }
+              },
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 9,
+              "size_buckets": {
+                "5_12": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 6
+                },
+                "le_4": {
+                  "fill_count": 0,
+                  "fill_ratio": 0.0,
+                  "hit_probability": 0.0,
+                  "order_count": 3
+                }
+              }
+            }
+          },
+          "size_buckets": {
+            "5_12": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 6
+            },
+            "le_4": {
+              "fill_count": 0,
+              "fill_ratio": 0.0,
+              "hit_probability": 0.0,
+              "order_count": 3
+            }
+          }
+        }
+      }
+    }
+  },
+  "metadata": {
+    "prior_weight": 0.0
+  }
+}

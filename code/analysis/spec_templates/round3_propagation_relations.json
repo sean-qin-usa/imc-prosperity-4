@@ -1,0 +1,101 @@
+{
+  "series": [
+    {
+      "name": "C",
+      "type": "symbol",
+      "symbol": "CROISSANTS"
+    },
+    {
+      "name": "J",
+      "type": "symbol",
+      "symbol": "JAMS"
+    },
+    {
+      "name": "D",
+      "type": "symbol",
+      "symbol": "DJEMBES"
+    },
+    {
+      "name": "PB1",
+      "type": "symbol",
+      "symbol": "PICNIC_BASKET1"
+    },
+    {
+      "name": "PB2",
+      "type": "symbol",
+      "symbol": "PICNIC_BASKET2"
+    },
+    {
+      "name": "SYNTH1",
+      "type": "linear_combo",
+      "components": {
+        "C": 6,
+        "J": 3,
+        "D": 1
+      }
+    },
+    {
+      "name": "SYNTH2",
+      "type": "linear_combo",
+      "components": {
+        "C": 4,
+        "J": 2
+      }
+    },
+    {
+      "name": "PB1_PREM",
+      "type": "difference",
+      "lhs": "PB1",
+      "rhs": "SYNTH1"
+    },
+    {
+      "name": "PB2_PREM",
+      "type": "difference",
+      "lhs": "PB2",
+      "rhs": "SYNTH2"
+    },
+    {
+      "name": "PREM_DIFF",
+      "type": "difference",
+      "lhs": "PB1_PREM",
+      "rhs": "PB2_PREM"
+    }
+  ],
+  "tests": [
+    {
+      "name": "Croissants_to_PB1_premium",
+      "leader": "C",
+      "follower": "PB1_PREM"
+    },
+    {
+      "name": "Croissants_to_PB2_premium",
+      "leader": "C",
+      "follower": "PB2_PREM"
+    },
+    {
+      "name": "Jams_to_PB1_premium",
+      "leader": "J",
+      "follower": "PB1_PREM"
+    },
+    {
+      "name": "Djembes_to_PB1_premium",
+      "leader": "D",
+      "follower": "PB1_PREM"
+    },
+    {
+      "name": "PB1_premium_to_Croissants",
+      "leader": "PB1_PREM",
+      "follower": "C"
+    },
+    {
+      "name": "PB2_premium_to_Croissants",
+      "leader": "PB2_PREM",
+      "follower": "C"
+    },
+    {
+      "name": "Croissants_to_Premium_difference",
+      "leader": "C",
+      "follower": "PREM_DIFF"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "data_dir": "IMCP2026/data/round0",
+  "output_dir": "IMCP2026/analysis/visualizer_report",
+  "group_output": false,
+  "symbols": [],
+  "max_points": 20000,
+  "min_trade_qty": null,
+  "max_trade_qty": null,
+  "impact_horizons": [1, 5, 10],
+  "rolling_window": 20,
+  "normalize_by": "wall_mid",
+  "ema_windows": [20, 50],
+  "backtest_path": null,
+  "log_file": null,
+  "log_max_rows": 200,
+  "indicator_file": null,
+  "indicator_columns": [],
+  "small_trade_qty": 3,
+  "big_trade_qty": 10,
+  "own_trade_tags": ["SUBMISSION"],
+  "informed_traders": [],
+  "theme": {
+    "dpi": 160,
+    "font_size": 10,
+    "title_size": 12,
+    "label_size": 9
+  }
+}

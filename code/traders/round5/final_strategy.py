@@ -1,0 +1,177 @@
+from datamodel import Order, OrderDepth, TradingState
+
+class Trader:
+    PRODUCTS = (
+        "GALAXY_SOUNDS_DARK_MATTER",
+        "GALAXY_SOUNDS_BLACK_HOLES",
+        "GALAXY_SOUNDS_PLANETARY_RINGS",
+        "GALAXY_SOUNDS_SOLAR_WINDS",
+        "GALAXY_SOUNDS_SOLAR_FLAMES",
+        "SLEEP_POD_SUEDE",
+        "SLEEP_POD_LAMB_WOOL",
+        "SLEEP_POD_POLYESTER",
+        "SLEEP_POD_NYLON",
+        "SLEEP_POD_COTTON",
+        "MICROCHIP_CIRCLE",
+        "MICROCHIP_OVAL",
+        "MICROCHIP_SQUARE",
+        "MICROCHIP_RECTANGLE",
+        "MICROCHIP_TRIANGLE",
+        "PEBBLES_XS",
+        "PEBBLES_S",
+        "PEBBLES_M",
+        "PEBBLES_L",
+        "PEBBLES_XL",
+        "ROBOT_VACUUMING",
+        "ROBOT_MOPPING",
+        "ROBOT_DISHES",
+        "ROBOT_LAUNDRY",
+        "ROBOT_IRONING",
+        "UV_VISOR_YELLOW",
+        "UV_VISOR_AMBER",
+        "UV_VISOR_ORANGE",
+        "UV_VISOR_RED",
+        "UV_VISOR_MAGENTA",
+        "TRANSLATOR_SPACE_GRAY",
+        "TRANSLATOR_ASTRO_BLACK",
+        "TRANSLATOR_ECLIPSE_CHARCOAL",
+        "TRANSLATOR_GRAPHITE_MIST",
+        "TRANSLATOR_VOID_BLUE",
+        "PANEL_1X2",
+        "PANEL_2X2",
+        "PANEL_1X4",
+        "PANEL_2X4",
+        "PANEL_4X4",
+        "OXYGEN_SHAKE_MORNING_BREATH",
+        "OXYGEN_SHAKE_EVENING_BREATH",
+        "OXYGEN_SHAKE_MINT",
+        "OXYGEN_SHAKE_CHOCOLATE",
+        "OXYGEN_SHAKE_GARLIC",
+        "SNACKPACK_CHOCOLATE",
+        "SNACKPACK_VANILLA",
+        "SNACKPACK_PISTACHIO",
+        "SNACKPACK_STRAWBERRY",
+        "SNACKPACK_RASPBERRY",
+    )
+    LIMITS = {product: 10 for product in PRODUCTS}
+    SIDE_BIAS = {
+        "GALAXY_SOUNDS_BLACK_HOLES": "buy",
+        "GALAXY_SOUNDS_DARK_MATTER": "buy",
+        "GALAXY_SOUNDS_PLANETARY_RINGS": "sell",
+        "GALAXY_SOUNDS_SOLAR_FLAMES": "buy",
+        "GALAXY_SOUNDS_SOLAR_WINDS": "buy",
+        "MICROCHIP_CIRCLE": "buy",
+        "MICROCHIP_OVAL": "sell",
+        "MICROCHIP_RECTANGLE": "sell",
+        "MICROCHIP_SQUARE": "buy",
+        "MICROCHIP_TRIANGLE": "sell",
+        "OXYGEN_SHAKE_CHOCOLATE": "buy",
+        "OXYGEN_SHAKE_EVENING_BREATH": "sell",
+        "OXYGEN_SHAKE_GARLIC": "buy",
+        "OXYGEN_SHAKE_MINT": "buy",
+        "OXYGEN_SHAKE_MORNING_BREATH": "sell",
+        "PANEL_1X2": "sell",
+        "PANEL_1X4": "sell",
+        "PANEL_2X2": "sell",
+        "PANEL_2X4": "buy",
+        "PANEL_4X4": "sell",
+        "PEBBLES_L": "sell",
+        "PEBBLES_M": "buy",
+        "PEBBLES_S": "sell",
+        "PEBBLES_XL": "buy",
+        "PEBBLES_XS": "sell",
+        "ROBOT_DISHES": "buy",
+        "ROBOT_IRONING": "sell",
+        "ROBOT_LAUNDRY": "sell",
+        "ROBOT_MOPPING": "buy",
+        "ROBOT_VACUUMING": "sell",
+        "SLEEP_POD_COTTON": "buy",
+        "SLEEP_POD_LAMB_WOOL": "buy",
+        "SLEEP_POD_NYLON": "buy",
+        "SLEEP_POD_POLYESTER": "buy",
+        "SLEEP_POD_SUEDE": "buy",
+        "SNACKPACK_CHOCOLATE": "sell",
+        "SNACKPACK_PISTACHIO": "sell",
+        "SNACKPACK_RASPBERRY": "buy",
+        "SNACKPACK_STRAWBERRY": "buy",
+        "SNACKPACK_VANILLA": "buy",
+        "TRANSLATOR_ASTRO_BLACK": "sell",
+        "TRANSLATOR_ECLIPSE_CHARCOAL": "sell",
+        "TRANSLATOR_GRAPHITE_MIST": "sell",
+        "TRANSLATOR_SPACE_GRAY": "sell",
+        "TRANSLATOR_VOID_BLUE": "buy",
+        "UV_VISOR_AMBER": "sell",
+        "UV_VISOR_MAGENTA": "buy",
+        "UV_VISOR_ORANGE": "sell",
+        "UV_VISOR_RED": "buy",
+        "UV_VISOR_YELLOW": "buy",
+    }
+    DIRECTIONAL_TARGET = 6
+    TAKE_SIZE = 8
+    PASSIVE_SIZE = 4
+    IMPROVEMENT = 1
+    IMB_THR = 0.3
+    PURE_TAKER = False
+
+    @staticmethod
+    def _best(depth):
+        if not depth.buy_orders or not depth.sell_orders:
+            return None
+        bid = max(depth.buy_orders)
+        ask = min(depth.sell_orders)
+        return bid, int(depth.buy_orders[bid]), ask, -int(depth.sell_orders[ask])
+
+    def _capacity(self, state, product):
+        limit = self.LIMITS.get(product, 10)
+        pos = int(state.position.get(product, 0))
+        return max(0, limit - pos), max(0, limit + pos), pos, limit
+
+    def run(self, state: TradingState):
+        result = {}
+        for sym, od in state.order_depths.items():
+            side = self.SIDE_BIAS.get(sym)
+            if side is None:
+                continue
+            best = self._best(od)
+            if best is None:
+                continue
+            bid, bid_vol, ask, ask_vol = best
+            buy_cap, sell_cap, pos, limit = self._capacity(state, sym)
+            orders = []
+
+            if state.timestamp >= 10000:
+                target = self.DIRECTIONAL_TARGET if side == "buy" else -self.DIRECTIONAL_TARGET
+                if side == "buy" and pos < target and buy_cap > 0:
+                    qty = min(target - pos, buy_cap, ask_vol, self.TAKE_SIZE)
+                    if qty > 0:
+                        orders.append(Order(sym, ask, qty))
+                elif side == "sell" and pos > target and sell_cap > 0:
+                    qty = min(pos - target, sell_cap, bid_vol, self.TAKE_SIZE)
+                    if qty > 0:
+                        orders.append(Order(sym, bid, -qty))
+
+            if not orders and not self.PURE_TAKER:
+                our_bid = bid + self.IMPROVEMENT
+                our_ask = ask - self.IMPROVEMENT
+                if our_bid < our_ask:
+                    quote_bid = buy_cap > 0
+                    quote_ask = sell_cap > 0
+                    tot = bid_vol + ask_vol
+                    if tot > 0:
+                        imb = (bid_vol - ask_vol) / tot
+                        if imb > self.IMB_THR:
+                            quote_ask = False
+                        elif imb < -self.IMB_THR:
+                            quote_bid = False
+                    if quote_bid:
+                        qty = min(buy_cap, self.PASSIVE_SIZE)
+                        if qty > 0:
+                            orders.append(Order(sym, our_bid, qty))
+                    if quote_ask:
+                        qty = min(sell_cap, self.PASSIVE_SIZE)
+                        if qty > 0:
+                            orders.append(Order(sym, our_ask, -qty))
+
+            if orders:
+                result[sym] = orders
+        return result, 0, ""

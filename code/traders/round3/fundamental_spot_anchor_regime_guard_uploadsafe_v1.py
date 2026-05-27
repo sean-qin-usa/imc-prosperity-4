@@ -1,0 +1,678 @@
+# Standalone upload-safe research variant.
+
+"""
+Round 3 fundamental_v1 — parameterized, tune-friendly reference build.
+
+Design principles:
+1. HYDROGEL_PACK is an independent stationary product. Trade it on its
+   own anchor / inventory logic. Do not tie it to the other contracts.
+2. VELVETFRUIT_EXTRACT is the true underlying for the voucher chain.
+   Use it as the primary fair-value input, not as a direct pair-trade
+   leg against the vouchers.
+3. VEV_4000 and VEV_4500 are deep-ITM calls, i.e. synthetic spot with
+   wide spreads. Their executable edge is in pricing THEM off the
+   tighter underlying, not in crossing spot against them.
+4. The option surface can be informative about future extract drift,
+   but the signal is weak and too costly to cross directly. Use it as a
+   rare-state risk overlay on the deep-ITM sleeve, not as a new alpha
+   engine.
+
+This file is meant to be readable and tunable. Most knobs are grouped
+at the top by sleeve.
+"""
+from typing import Dict, List, Optional, Tuple
+from statistics import NormalDist
+import json
+import math
+
+from datamodel import Order, OrderDepth, TradingState
+
+
+_N = NormalDist()
+DAYS_PER_YEAR = 365
+TTE_DAYS_LIVE = 5.0
+
+
+class BaseTrader:
+    LIMITS = {
+        "HYDROGEL_PACK": 200,
+        "VELVETFRUIT_EXTRACT": 200,
+        "VEV_4000": 300,
+        "VEV_4500": 300,
+        "VEV_5000": 300,
+        "VEV_5100": 300,
+        "VEV_5200": 300,
+        "VEV_5300": 300,
+        "VEV_5400": 300,
+        "VEV_5500": 300,
+        "VEV_6000": 300,
+        "VEV_6500": 300,
+    }
+
+    VOUCHER_STRIKES = {"VEV_4000": 4000, "VEV_4500": 4500}
+    SURFACE_STRIKES = {
+        "VEV_5000": 5000,
+        "VEV_5100": 5100,
+        "VEV_5200": 5200,
+        "VEV_5300": 5300,
+        "VEV_5400": 5400,
+        "VEV_5500": 5500,
+    }
+
+    # ---------- HYDROGEL_PACK ----------
+    # Independent stationary anchor product.
+    H_ANCHOR = 9990.0
+    H_CLIP = 30.0
+    H_TAKE_EDGE = 0.0
+    H_REDUCE_EDGE = 1.0
+    H_PENNY_EDGE = 1.5
+    H_INV_SKEW = 0.015
+    H_MAX_POST_SIZE = 20
+    H_PASSIVE_OFFSET = 8.0
+    H_WIDE_SPREAD = 8
+    H_SHOCK_MOVE = 15.0
+    H_ENDGAME_START = 985000
+    H_ENDGAME_POS = 150
+    H_ENDGAME_CHUNK = 30
+
+    # ---------- DEEP-ITM VOUCHERS ----------
+    # Spot-anchored fair values with sibling confirmation.
+    V_SIGMA = 0.23
+    V_TAKE_EDGE = 0.0
+    V_REDUCE_EDGE = 0.0
+    V_PENNY_EDGE = 1.0
+    V_INV_SKEW = 0.005
+    V_MAX_POST_SIZE = 40
+    V_WIDE_SPREAD = 3
+
+    # Cross-contract relationship knobs:
+    # sibling_implied_spot = sibling_mid + sibling_strike
+    # If sibling_implied_spot disagrees too much with VFE spot, trust the
+    # setup less and quote smaller / require more edge.
+    V_CONFIRM_THRESHOLD = 2.5
+    V_CONFIRM_WIDEN = 0.5
+    V_CONFIRM_SIZE_MULT = 0.5
+
+    # Optional tiny blend from sibling synthetic into spot estimate.
+    # Keep this small; spot is still the primary truth source.
+    V_SIBLING_BLEND = 0.10
+    V_SIBLING_BLEND_CAP = 4.0
+
+    V_ENDGAME_START = 980000
+    V_ENDGAME_POS = 120
+    V_ENDGAME_CHUNK = 25
+
+    # ---------- OPTIONAL SPOT HEDGE ----------
+    # Disabled by default. Expose it for later tuning only.
+    ENABLE_UNDERLYING_HEDGE = False
+    HEDGE_DELTA_THRESHOLD = 180.0
+    HEDGE_SIZE = 20
+    HEDGE_EDGE = 1.0
+
+    # ---------- SURFACE REGIME OVERLAY ----------
+    # Learn a simple online z-score state for the 5000-5500 residual
+    # surface, then use only extreme bearish states to throttle
+    # deep-ITM buying and accelerate long reduction.
+    SURFACE_ATM = ("VEV_5000", "VEV_5100", "VEV_5200")
+    SURFACE_OTM = ("VEV_5300", "VEV_5400", "VEV_5500")
+    SURFACE_ALPHA = 0.03
+    SURFACE_WARMUP = 30
+    SURFACE_MIN_VAR = 0.25
+    SURFACE_Z_CAP = 5.0
+
+    SURFACE_OTM_VRICH_Z = 1.35
+    SURFACE_SLOPE_BEAR_Z = 2.0
+    SURFACE_ATM_CHEAP_Z = -1.10
+
+    SURFACE_SOFT_BUY_EDGE = 0.75
+    SURFACE_SOFT_BID_SIZE_MULT = 0.35
+    SURFACE_SOFT_REDUCE_EDGE = 0.75
+    SURFACE_SOFT_ASK_IMPROVE = 0.50
+
+    SURFACE_HARD_BUY_EDGE = 1.50
+    SURFACE_HARD_BID_SIZE_MULT = 0.00
+    SURFACE_HARD_REDUCE_EDGE = 1.25
+    SURFACE_HARD_ASK_IMPROVE = 1.00
+
+    ENABLE_REGIME_HEDGE = False
+    REGIME_HEDGE_DELTA_THRESHOLD = 140.0
+    REGIME_HEDGE_SIZE = 20
+    REGIME_HEDGE_EDGE = 1.0
+
+    def _book(self, od: OrderDepth):
+        if not od.buy_orders or not od.sell_orders:
+            return None
+        buys = {int(p): abs(int(v)) for p, v in od.buy_orders.items()}
+        sells = {int(p): abs(int(v)) for p, v in od.sell_orders.items()}
+        bb = max(buys)
+        ba = min(sells)
+        return {
+            "buys": dict(sorted(buys.items(), reverse=True)),
+            "sells": dict(sorted(sells.items())),
+            "bb": bb,
+            "ba": ba,
+            "bv": buys[bb],
+            "av": sells[ba],
+            "spread": ba - bb,
+            "touch_mid": 0.5 * (bb + ba),
+        }
+
+    @staticmethod
+    def _clip(value: float, lo: float, hi: float) -> float:
+        return max(lo, min(hi, value))
+
+    def _cap_size(
+        self,
+        max_size: int,
+        pos: int,
+        side: str,
+        cap: int,
+        limit: int,
+        size_mult: float = 1.0,
+    ) -> int:
+        if cap <= 0:
+            return 0
+        ratio = 1.0 - min(0.7, abs(pos) / limit)
+        if (side == "buy" and pos > 0) or (side == "sell" and pos < 0):
+            ratio = max(0.3, ratio - 0.3)
+        target = int(round(max_size * ratio * size_mult))
+        return max(0, min(cap, target))
+
+    @staticmethod
+    def _opt_theo(S: float, K: int, T: float, sigma: float) -> float:
+        if T <= 0 or sigma <= 0:
+            return max(0.0, S - K)
+        sq = sigma * math.sqrt(T)
+        d1 = (math.log(S / K) + 0.5 * sigma * sigma * T) / sq
+        d2 = d1 - sq
+        return S * _N.cdf(d1) - K * _N.cdf(d2)
+
+    @staticmethod
+    def _opt_delta(S: float, K: int, T: float, sigma: float) -> float:
+        if T <= 0 or sigma <= 0:
+            return 1.0 if S > K else 0.0
+        sq = sigma * math.sqrt(T)
+        d1 = (math.log(S / K) + 0.5 * sigma * sigma * T) / sq
+        return _N.cdf(d1)
+
+    @staticmethod
+    def _tte_years(ts: int) -> float:
+        tte_days = TTE_DAYS_LIVE - ts / 1e6
+        if tte_days <= 0:
+            return 0.0
+        return tte_days / DAYS_PER_YEAR
+
+    def _flatten_visible(
+        self,
+        name: str,
+        book: dict,
+        working: int,
+        chunk: int,
+    ) -> Tuple[List[Order], int]:
+        orders: List[Order] = []
+        if working > 0:
+            remaining = min(working, chunk)
+            for bp, bv in book["buys"].items():
+                q = min(bv, remaining)
+                if q > 0:
+                    orders.append(Order(name, bp, -q))
+                    working -= q
+                    remaining -= q
+                if remaining <= 0:
+                    break
+        elif working < 0:
+            remaining = min(-working, chunk)
+            for ap, av in book["sells"].items():
+                q = min(av, remaining)
+                if q > 0:
+                    orders.append(Order(name, ap, q))
+                    working += q
+                    remaining -= q
+                if remaining <= 0:
+                    break
+        return orders, working
+
+    def _trade_hydrogel(
+        self,
+        od: OrderDepth,
+        pos: int,
+        prev_mid: Optional[float],
+        ts: int,
+    ) -> Tuple[List[Order], float]:
+        prod = "HYDROGEL_PACK"
+        limit = self.LIMITS[prod]
+        book = self._book(od)
+        if not book:
+            return [], prev_mid if prev_mid is not None else 0.0
+        bb, ba = book["bb"], book["ba"]
+        spread = book["spread"]
+        touch_mid = book["touch_mid"]
+
+        shock = prev_mid is not None and abs(touch_mid - prev_mid) > self.H_SHOCK_MOVE
+        if shock:
+            fair = touch_mid
+        else:
+            fair_adj = self._clip(touch_mid - self.H_ANCHOR, -self.H_CLIP, self.H_CLIP)
+            fair = self.H_ANCHOR + fair_adj
+
+        working = pos
+        orders: List[Order] = []
+
+        if ts >= self.H_ENDGAME_START and abs(working) >= self.H_ENDGAME_POS:
+            flat_orders, working = self._flatten_visible(
+                prod, book, working, self.H_ENDGAME_CHUNK
+            )
+            orders.extend(flat_orders)
+            return orders, touch_mid
+
+        for ap, av in book["sells"].items():
+            cap = limit - working
+            if cap <= 0:
+                break
+            skew = fair - self.H_INV_SKEW * working
+            if ap <= skew - self.H_TAKE_EDGE:
+                q = min(av, cap)
+                if q > 0:
+                    orders.append(Order(prod, ap, q))
+                    working += q
+            elif working < 0 and ap <= skew + self.H_REDUCE_EDGE:
+                q = min(av, cap, abs(working))
+                if q > 0:
+                    orders.append(Order(prod, ap, q))
+                    working += q
+
+        for bp, bv in book["buys"].items():
+            cap = limit + working
+            if cap <= 0:
+                break
+            skew = fair - self.H_INV_SKEW * working
+            if bp >= skew + self.H_TAKE_EDGE:
+                q = min(bv, cap)
+                if q > 0:
+                    orders.append(Order(prod, bp, -q))
+                    working -= q
+            elif working > 0 and bp >= skew - self.H_REDUCE_EDGE:
+                q = min(bv, cap, working)
+                if q > 0:
+                    orders.append(Order(prod, bp, -q))
+                    working -= q
+
+        if shock:
+            return orders, touch_mid
+
+        skew = fair - self.H_INV_SKEW * working
+        buy_cap = max(0, limit - working)
+        sell_cap = max(0, limit + working)
+        bid_size = self._cap_size(self.H_MAX_POST_SIZE, working, "buy", buy_cap, limit)
+        ask_size = self._cap_size(self.H_MAX_POST_SIZE, working, "sell", sell_cap, limit)
+
+        if spread >= self.H_WIDE_SPREAD:
+            bid_price = min(bb + 1, math.floor(skew - self.H_PENNY_EDGE))
+            ask_price = max(ba - 1, math.ceil(skew + self.H_PENNY_EDGE))
+        else:
+            bid_price = math.floor(skew - self.H_PASSIVE_OFFSET)
+            ask_price = math.ceil(skew + self.H_PASSIVE_OFFSET)
+        bid_price = min(int(bid_price), ba - 1, math.floor(fair) - 1)
+        ask_price = max(int(ask_price), bb + 1, math.ceil(fair) + 1)
+
+        if bid_price < ask_price:
+            if bid_size > 0:
+                orders.append(Order(prod, bid_price, bid_size))
+            if ask_size > 0:
+                orders.append(Order(prod, ask_price, -ask_size))
+        return orders, touch_mid
+
+    def _voucher_context(
+        self,
+        name: str,
+        spot_mid: float,
+        books: Dict[str, dict],
+    ) -> Tuple[float, float]:
+        other_name = "VEV_4500" if name == "VEV_4000" else "VEV_4000"
+        other_book = books.get(other_name)
+        if other_book is None:
+            return spot_mid, 0.0
+
+        other_synth = other_book["touch_mid"] + self.VOUCHER_STRIKES[other_name]
+        disagreement = other_synth - spot_mid
+        blended_spot = spot_mid + self.V_SIBLING_BLEND * self._clip(
+            disagreement, -self.V_SIBLING_BLEND_CAP, self.V_SIBLING_BLEND_CAP
+        )
+        return blended_spot, disagreement
+
+    def _surface_regime(
+        self,
+        spot_mid: float,
+        books: Dict[str, dict],
+        T: float,
+        saved: Dict,
+    ) -> Dict[str, float]:
+        stats = saved.setdefault("surface_stats", {})
+        residuals: Dict[str, float] = {}
+        zscores: Dict[str, float] = {}
+
+        for name in self.SURFACE_ATM + self.SURFACE_OTM:
+            book = books.get(name)
+            if book is None:
+                continue
+            fair = self._opt_theo(spot_mid, self.SURFACE_STRIKES[name], T, self.V_SIGMA)
+            resid = book["touch_mid"] - fair
+            residuals[name] = resid
+
+            st = stats.get(name)
+            if st is None or st.get("n", 0) < self.SURFACE_WARMUP:
+                continue
+            var = max(float(st.get("var", 0.0)), self.SURFACE_MIN_VAR)
+            z = (resid - float(st.get("mean", 0.0))) / math.sqrt(var)
+            zscores[name] = self._clip(z, -self.SURFACE_Z_CAP, self.SURFACE_Z_CAP)
+
+        regime = {
+            "bearish": False,
+            "hard_bear": False,
+            "buy_edge": 0.0,
+            "bid_size_mult": 1.0,
+            "reduce_edge": 0.0,
+            "ask_improve": 0.0,
+            "atm_factor": 0.0,
+            "otm_factor": 0.0,
+            "surface_slope": 0.0,
+        }
+
+        atm_vals = [zscores.get(name) for name in self.SURFACE_ATM]
+        otm_vals = [zscores.get(name) for name in self.SURFACE_OTM]
+        if all(v is not None for v in atm_vals + otm_vals):
+            atm_factor = sum(atm_vals) / len(atm_vals)
+            otm_factor = sum(otm_vals) / len(otm_vals)
+            slope = otm_factor - atm_factor
+
+            hard_bear = otm_factor >= self.SURFACE_OTM_VRICH_Z
+            soft_bear = slope >= self.SURFACE_SLOPE_BEAR_Z and atm_factor <= self.SURFACE_ATM_CHEAP_Z
+
+            regime["atm_factor"] = atm_factor
+            regime["otm_factor"] = otm_factor
+            regime["surface_slope"] = slope
+
+            if hard_bear:
+                regime.update(
+                    {
+                        "bearish": True,
+                        "hard_bear": True,
+                        "buy_edge": self.SURFACE_HARD_BUY_EDGE,
+                        "bid_size_mult": self.SURFACE_HARD_BID_SIZE_MULT,
+                        "reduce_edge": self.SURFACE_HARD_REDUCE_EDGE,
+                        "ask_improve": self.SURFACE_HARD_ASK_IMPROVE,
+                    }
+                )
+            elif soft_bear:
+                regime.update(
+                    {
+                        "bearish": True,
+                        "hard_bear": False,
+                        "buy_edge": self.SURFACE_SOFT_BUY_EDGE,
+                        "bid_size_mult": self.SURFACE_SOFT_BID_SIZE_MULT,
+                        "reduce_edge": self.SURFACE_SOFT_REDUCE_EDGE,
+                        "ask_improve": self.SURFACE_SOFT_ASK_IMPROVE,
+                    }
+                )
+
+        alpha = self.SURFACE_ALPHA
+        for name, resid in residuals.items():
+            st = stats.get(name)
+            if st is None:
+                stats[name] = {"n": 1, "mean": resid, "var": 1.0}
+                continue
+            mean = float(st.get("mean", resid))
+            diff = resid - mean
+            mean += alpha * diff
+            var = (1.0 - alpha) * float(st.get("var", 1.0)) + alpha * diff * diff
+            stats[name] = {"n": int(st.get("n", 0)) + 1, "mean": mean, "var": max(var, self.SURFACE_MIN_VAR)}
+
+        saved["surface_last"] = {
+            "bearish": regime["bearish"],
+            "hard_bear": regime["hard_bear"],
+            "atm_factor": round(regime["atm_factor"], 3),
+            "otm_factor": round(regime["otm_factor"], 3),
+            "surface_slope": round(regime["surface_slope"], 3),
+        }
+        return regime
+
+    def _trade_deep_itm(
+        self,
+        name: str,
+        K: int,
+        od: OrderDepth,
+        pos: int,
+        spot_mid: float,
+        books: Dict[str, dict],
+        T: float,
+        ts: int,
+        regime: Optional[Dict[str, float]] = None,
+    ) -> List[Order]:
+        limit = self.LIMITS[name]
+        book = self._book(od)
+        if not book:
+            return []
+
+        spot_for_fair, disagreement = self._voucher_context(name, spot_mid, books)
+        confidence_bad = abs(disagreement) > self.V_CONFIRM_THRESHOLD
+        extra_edge = self.V_CONFIRM_WIDEN if confidence_bad else 0.0
+        size_mult = self.V_CONFIRM_SIZE_MULT if confidence_bad else 1.0
+        regime_buy_edge = float(regime.get("buy_edge", 0.0)) if regime else 0.0
+        regime_bid_mult = float(regime.get("bid_size_mult", 1.0)) if regime else 1.0
+        regime_reduce_edge = float(regime.get("reduce_edge", 0.0)) if regime else 0.0
+        regime_ask_improve = float(regime.get("ask_improve", 0.0)) if regime else 0.0
+
+        bb, ba = book["bb"], book["ba"]
+        spread = book["spread"]
+        fair = self._opt_theo(spot_for_fair, K, T, self.V_SIGMA)
+        working = pos
+        orders: List[Order] = []
+
+        if ts >= self.V_ENDGAME_START and abs(working) >= self.V_ENDGAME_POS:
+            flat_orders, _ = self._flatten_visible(
+                name, book, working, self.V_ENDGAME_CHUNK
+            )
+            return flat_orders
+
+        for ap, av in book["sells"].items():
+            cap = limit - working
+            if cap <= 0:
+                break
+            skew = fair - self.V_INV_SKEW * working
+            if ap <= skew - (self.V_TAKE_EDGE + extra_edge + regime_buy_edge):
+                q = min(av, cap)
+                if q > 0:
+                    orders.append(Order(name, ap, q))
+                    working += q
+            elif working < 0 and ap <= skew + self.V_REDUCE_EDGE:
+                q = min(av, cap, abs(working))
+                if q > 0:
+                    orders.append(Order(name, ap, q))
+                    working += q
+
+        for bp, bv in book["buys"].items():
+            cap = limit + working
+            if cap <= 0:
+                break
+            skew = fair - self.V_INV_SKEW * working
+            if bp >= skew + (self.V_TAKE_EDGE + extra_edge):
+                q = min(bv, cap)
+                if q > 0:
+                    orders.append(Order(name, bp, -q))
+                    working -= q
+            elif working > 0 and bp >= skew - (self.V_REDUCE_EDGE + regime_reduce_edge):
+                q = min(bv, cap, working)
+                if q > 0:
+                    orders.append(Order(name, bp, -q))
+                    working -= q
+
+        skew = fair - self.V_INV_SKEW * working
+        buy_cap = max(0, limit - working)
+        sell_cap = max(0, limit + working)
+        bid_size = self._cap_size(
+            self.V_MAX_POST_SIZE,
+            working,
+            "buy",
+            buy_cap,
+            limit,
+            size_mult * regime_bid_mult,
+        )
+        ask_size = self._cap_size(
+            self.V_MAX_POST_SIZE, working, "sell", sell_cap, limit, size_mult
+        )
+
+        if spread >= self.V_WIDE_SPREAD:
+            bid_price = min(
+                bb + 1,
+                math.floor(skew - self.V_PENNY_EDGE - extra_edge - regime_buy_edge),
+            )
+            ask_price = max(
+                ba - 1,
+                math.ceil(skew + self.V_PENNY_EDGE + extra_edge - regime_ask_improve),
+            )
+            bid_price = min(int(bid_price), ba - 1, math.floor(fair) - 1)
+            ask_price = max(int(ask_price), bb + 1, math.ceil(fair) + 1)
+            if bid_price < ask_price:
+                if bid_size > 0:
+                    orders.append(Order(name, bid_price, bid_size))
+                if ask_size > 0:
+                    orders.append(Order(name, ask_price, -ask_size))
+        return orders
+
+    def _maybe_hedge_underlying(
+        self,
+        state: TradingState,
+        spot_book: dict,
+        T: float,
+        regime: Optional[Dict[str, float]] = None,
+    ) -> List[Order]:
+        regime_hard_bear = bool(regime and regime.get("hard_bear"))
+        if not self.ENABLE_UNDERLYING_HEDGE and not (
+            self.ENABLE_REGIME_HEDGE and regime_hard_bear
+        ):
+            return []
+
+        spot_pos = state.position.get("VELVETFRUIT_EXTRACT", 0)
+        net_delta = float(spot_pos)
+        spot_mid = spot_book["touch_mid"]
+
+        for name, K in self.VOUCHER_STRIKES.items():
+            p = state.position.get(name, 0)
+            net_delta += p * self._opt_delta(spot_mid, K, T, self.V_SIGMA)
+
+        delta_threshold = (
+            self.REGIME_HEDGE_DELTA_THRESHOLD
+            if self.ENABLE_REGIME_HEDGE and regime_hard_bear
+            else self.HEDGE_DELTA_THRESHOLD
+        )
+        if abs(net_delta) < delta_threshold:
+            return []
+
+        orders: List[Order] = []
+        name = "VELVETFRUIT_EXTRACT"
+        bb, ba = spot_book["bb"], spot_book["ba"]
+        if net_delta > 0:
+            hedge_size = (
+                self.REGIME_HEDGE_SIZE
+                if self.ENABLE_REGIME_HEDGE and regime_hard_bear
+                else self.HEDGE_SIZE
+            )
+            hedge_edge = (
+                self.REGIME_HEDGE_EDGE
+                if self.ENABLE_REGIME_HEDGE and regime_hard_bear
+                else self.HEDGE_EDGE
+            )
+            q = min(hedge_size, self.LIMITS[name] + spot_pos, spot_book["bv"])
+            if q > 0 and bb >= spot_mid - hedge_edge:
+                orders.append(Order(name, bb, -q))
+        else:
+            hedge_size = (
+                self.REGIME_HEDGE_SIZE
+                if self.ENABLE_REGIME_HEDGE and regime_hard_bear
+                else self.HEDGE_SIZE
+            )
+            hedge_edge = (
+                self.REGIME_HEDGE_EDGE
+                if self.ENABLE_REGIME_HEDGE and regime_hard_bear
+                else self.HEDGE_EDGE
+            )
+            q = min(hedge_size, self.LIMITS[name] - spot_pos, spot_book["av"])
+            if q > 0 and ba <= spot_mid + hedge_edge:
+                orders.append(Order(name, ba, q))
+        return orders
+
+    def run(self, state: TradingState):
+        saved: Dict = {}
+        if state.traderData:
+            try:
+                saved = json.loads(state.traderData)
+            except Exception:
+                saved = {}
+
+        result: Dict[str, List[Order]] = {}
+        pos = state.position
+
+        if "HYDROGEL_PACK" in state.order_depths:
+            prev_mid = saved.get("h_prev_mid")
+            orders, new_mid = self._trade_hydrogel(
+                state.order_depths["HYDROGEL_PACK"],
+                pos.get("HYDROGEL_PACK", 0),
+                prev_mid,
+                state.timestamp,
+            )
+            result["HYDROGEL_PACK"] = orders
+            saved["h_prev_mid"] = new_mid
+
+        books: Dict[str, dict] = {}
+        for name in (
+            "VELVETFRUIT_EXTRACT",
+            "VEV_4000",
+            "VEV_4500",
+            "VEV_5000",
+            "VEV_5100",
+            "VEV_5200",
+            "VEV_5300",
+            "VEV_5400",
+            "VEV_5500",
+        ):
+            od = state.order_depths.get(name)
+            if od is not None:
+                book = self._book(od)
+                if book is not None:
+                    books[name] = book
+
+        spot_book = books.get("VELVETFRUIT_EXTRACT")
+        if spot_book is not None:
+            spot_mid = spot_book["touch_mid"]
+            T = self._tte_years(state.timestamp)
+            regime = self._surface_regime(spot_mid, books, T, saved)
+
+            for name, K in self.VOUCHER_STRIKES.items():
+                od = state.order_depths.get(name)
+                if od is None:
+                    continue
+                result[name] = self._trade_deep_itm(
+                    name,
+                    K,
+                    od,
+                    pos.get(name, 0),
+                    spot_mid,
+                    books,
+                    T,
+                    state.timestamp,
+                    regime,
+                )
+
+            hedge_orders = self._maybe_hedge_underlying(state, spot_book, T, regime)
+            if hedge_orders:
+                result["VELVETFRUIT_EXTRACT"] = hedge_orders
+
+        return result, 0, json.dumps(saved)
+
+
+class Trader(BaseTrader):
+    V_CONFIRM_THRESHOLD = 999.0
+    V_CONFIRM_WIDEN = 0.0
+    V_CONFIRM_SIZE_MULT = 1.0
+    V_SIBLING_BLEND = 0.0
+    ENABLE_UNDERLYING_HEDGE = False

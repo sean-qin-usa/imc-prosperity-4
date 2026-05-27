@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+tools/backtest_reports/
+gen/
+analysis/visualizer_report/**/report_interactive.html

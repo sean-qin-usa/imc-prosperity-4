@@ -1,0 +1,39 @@
+{
+  "relations": [
+    {
+      "name": "PB1_vs_synth",
+      "target": "PICNIC_BASKET1",
+      "components": {
+        "CROISSANTS": 6,
+        "JAMS": 3,
+        "DJEMBES": 1
+      }
+    },
+    {
+      "name": "PB2_vs_synth",
+      "target": "PICNIC_BASKET2",
+      "components": {
+        "CROISSANTS": 4,
+        "JAMS": 2
+      }
+    },
+    {
+      "name": "PB1_premium_minus_PB2_premium",
+      "target": "PICNIC_BASKET1",
+      "components": {
+        "PICNIC_BASKET2": 1,
+        "CROISSANTS": 2,
+        "JAMS": 1,
+        "DJEMBES": 1
+      }
+    },
+    {
+      "name": "PB1_minus_1p5_PB2_minus_DJEMBES",
+      "target": "PICNIC_BASKET1",
+      "components": {
+        "PICNIC_BASKET2": 1.5,
+        "DJEMBES": 1
+      }
+    }
+  ]
+}

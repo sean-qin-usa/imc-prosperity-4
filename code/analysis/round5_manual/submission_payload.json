@@ -1,0 +1,40 @@
+{
+  "manualInputType": "NewsTradingRequest",
+  "orders": [
+    {
+      "product": "Lava cake",
+      "action": "SELL",
+      "volume": 27
+    },
+    {
+      "product": "Ashes of the Phoenix",
+      "action": "SELL",
+      "volume": 19
+    },
+    {
+      "product": "Obsidian cutlery",
+      "action": "SELL",
+      "volume": 14
+    },
+    {
+      "product": "Thermalite core",
+      "action": "BUY",
+      "volume": 14
+    },
+    {
+      "product": "Pyroflex cells",
+      "action": "SELL",
+      "volume": 13
+    },
+    {
+      "product": "Magma ink",
+      "action": "BUY",
+      "volume": 8
+    },
+    {
+      "product": "Sulfur reactor",
+      "action": "BUY",
+      "volume": 5
+    }
+  ]
+}

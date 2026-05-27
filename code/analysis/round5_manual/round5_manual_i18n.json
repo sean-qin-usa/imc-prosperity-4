@@ -1,0 +1,101 @@
+{
+  "title": "Manual challenge",
+  "labels": {
+    "tradableGood": "Tradable Good",
+    "yourTask": "Your orders",
+    "yourTaskDescription": "Choose which tradable goods you would like to trade on the Ignith market. ",
+    "percentage": "Percentage",
+    "valueRequired": "Value is required",
+    "valueMin": "Value must be at least 0",
+    "valueMax": "Value must be at most %%",
+    "totalInvestment": "Total investment:",
+    "buy": "Buy",
+    "sell": "Sell",
+    "invalidFormData": "Invalid form data. Please check your entries.",
+    "failedToSubmit": "Failed to submit",
+    "chooseAction": "Choose",
+    "spendingBudget": "Spending Budget",
+    "budgetUsed": "Budget Used",
+    "fee": "Fee",
+    "feeTooltip": {
+      "label": "Click for more information",
+      "description": "Trading fees apply for these tradable goods. The more you trade in one good, the more expensive it will get."
+    },
+    "tableHeaders": {
+      "tradableGood": "Tradable Good",
+      "action": "Buy/sell",
+      "percentage": "Percentage",
+      "investment": "Investment",
+      "fees": "Fee"
+    },
+    "confirmOrder": "Confirm your order. You can re-submit orders until the end of the round."
+  },
+  "maxBudget": 1000000,
+  "data": {
+    "options": [
+      {
+        "name": "Obsidian cutlery",
+        "icon": "/images/tradable-goods/obsidian_cutlery.png"
+      },
+      {
+        "name": "Pyroflex cells",
+        "icon": "/images/tradable-goods/pyroflex_cell.png"
+      },
+      {
+        "name": "Thermalite core",
+        "icon": "/images/tradable-goods/thermalite_core.png"
+      },
+      {
+        "name": "Lava cake",
+        "icon": "/images/tradable-goods/lava_cake.png"
+      },
+      {
+        "name": "Magma ink",
+        "icon": "/images/tradable-goods/magma_ink.png"
+      },
+      {
+        "name": "Scoria paste",
+        "icon": "/images/tradable-goods/scoria_paste.png"
+      },
+      {
+        "name": "Ashes of the Phoenix",
+        "icon": "/images/tradable-goods/ashes_of_the_phoenix.png"
+      },
+      {
+        "name": "Volcanic incense",
+        "icon": "/images/tradable-goods/volcanic_incens.png"
+      },
+      {
+        "name": "Sulfur reactor",
+        "icon": "/images/tradable-goods/sulfur_reactor.png"
+      }
+    ]
+  },
+  "introduction": {
+    "title": "Extra! Extra! Read all about it!",
+    "description": [
+      "You have the unique opportunity to trade on the Ignith market for this final round only. This neighboring planet is known for its volcanic scenery and heated market dynamics. You'll have a set budget of 1,000,000 XIRECs and access to their primary new source, \u201cAshflow Alpha\u201d to make informed decisions.",
+      "Be aware that there are trading fees involved, tied to the volume per product you choose to trade. Analyze the Ashflow Alpha articles to spot opportunities and develop your strategy for this final manual challenge. This is a one-time opportunity and does not affect your algorithmic trading activities. Enter your submission below and click Submit to confirm."
+    ],
+    "previewImageURL": "/images/vulcano.png",
+    "previewImageOffset": {
+      "x": -30,
+      "y": -20
+    },
+    "download": {
+      "previewImageURL": "/images/q7m3x9v2k1n8d0p4r6t5wz1h2j9c8b7a6f4e3d2c1b0a9f8e7d6c5b4a3.png",
+      "url": "/images/q7m3x9v2k1n8d0p4r6t5wz1h2j9c8b7a6f4e3d2c1b0a9f8e7d6c5b4a3.jpg",
+      "label": "Download the Ashflow Alpha newspaper"
+    }
+  },
+  "submitButtons": {
+    "submit": {
+      "label": "Submit orders"
+    },
+    "reset": {
+      "label": "Clear all"
+    }
+  },
+  "lastUpdated": "Last updated %% by @@.",
+  "noSubmissionsLabel": "No submission is provided yet"
+}

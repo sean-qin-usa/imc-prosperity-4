@@ -1,0 +1,16 @@
+run_dir,total_pnl,realized_pnl,unrealized_pnl,days,fills,fill_qty,turnover,strategy
+gen/backtests/20260414_120132__tut_try_trades_normalized__same-tick__all__round1_csv,210262.0,201269.34507619962,8992.654923800377,3,3227,16774,178666779.0,tut_try_trades_normalized
+gen/backtests/20260414_112049__round1_final__same-tick__all__round1_csv,183221.0,156127.59827320927,27093.40172679073,3,2534,13135,136686535.0,round1_final
+gen/backtests/20260414_101310__tut__same-tick__all__round1_csv,160190.0,134207.9468763733,25982.0531236267,3,3020,15816,163494761.0,tut
+gen/backtests/20260414_103628__tut_try_og__same-tick__all__round1_csv,134353.0,130102.78306383557,4250.2169361644355,3,2762,14444,156782283.0,tut_try_og
+gen/backtests/20260414_104114__tut_try_trades_adaptive__same-tick__all__round1_csv,112295.5,109797.6573929213,2497.84260707869,3,3489,18055,191463484.0,tut_try_trades_adaptive
+gen/backtests/20260414_103401__tut_try__same-tick__all__round1_csv,111898.5,108953.47023500343,2945.029764996545,3,3474,18021,191048725.0,tut_try
+gen/backtests/20260414_104711__tut_try_trades_wallvol__same-tick__all__round1_csv,111636.5,109138.01718567376,2498.482814326242,3,3479,18055,191397438.0,tut_try_trades_wallvol
+gen/backtests/20260414_103950__tut_try_trades__same-tick__all__round1_csv,111464.5,108966.01718567364,2498.4828143263585,3,3477,18061,191455026.0,tut_try_trades
+gen/backtests/20260414_102909__tut_sean__same-tick__all__round1_csv,108483.0,104057.98145034596,4425.018549654034,3,3425,18107,188585290.0,tut_sean
+gen/backtests/20260414_104333__tut_try_trades_linear__same-tick__all__round1_csv,107528.0,104986.6803487432,2541.3196512567847,3,3388,17576,185979430.0,tut_try_trades_linear
+gen/backtests/20260414_102301__tut_mega_taking__same-tick__all__round1_csv,57477.0,55934.532297738086,1542.467702261918,3,3114,16297,170398522.0,tut_mega_taking
+gen/backtests/20260414_103146__tut_taking__same-tick__all__round1_csv,57477.0,55934.532297738086,1542.467702261918,3,3114,16297,170398522.0,tut_taking
+gen/backtests/20260414_101838__tut_dog__same-tick__all__round1_csv,30333.5,30085.32965509651,248.1703449034885,3,3748,19642,207300742.0,tut_dog
+gen/backtests/20260414_101553__tut_bruh__same-tick__all__round1_csv,13011.0,6727.280420111507,6283.719579888495,3,2157,11027,117549347.0,tut_bruh
+gen/backtests/20260414_102531__tut_nothing__same-tick__all__round1_csv,0.0,0.0,0.0,3,0,0,0.0,tut_nothing
