@@ -19,7 +19,7 @@ The teams that beat me ran the same general playbook. The thing they had — and
 
 The practical follow-on for next time: ship cutoff well before the 50%-time mark (48-hour rounds are tight — aim for ~16–18 hours of build, the remainder audit only), with a mandatory first-principles checklist at each cutoff — fee assumptions, seed robustness, conversion ratios, cross-sleeve interaction, the inherited defaults. The audit (determining my final strategy ship) isn't validation theater; it's the literal task that closes the gap to a top finish. §0b through §7 are the concrete instances.
 
-To be clear about scope: I'm proud of what I shipped. Every round had positive expectancy, every manual had a defensible answer, and I built the structurally correct strategies — including the R5 family-pair-trade and the R4 regime-gated VFE sleeve — even where I didn't trust them enough to ship myself. The gap between rank-251 and a top finish wasn't quant chops. It was the audit discipline above.
+To be clear about scope: I'm proud of what I shipped. Every round had positive expectancy, every manual had a defensible answer, and I built the structurally correct strategies — including the R5 family-pair-trade and the R4 regime-gated VFE sleeve — even where I didn't trust them enough to ship myself. The gap between rank-251 and a top finish wasn't market research chops. It was the audit discipline above.
 
 ## 0b. Variance management beats expected-value maximization on a single realized path
 
