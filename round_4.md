@@ -10,9 +10,9 @@ The R4 setup is a continuation of R3 with an information disclosure. The honest 
 
 ## Counterparty event study
 
-Full report in [`analysis/round4_counterparty_signal_report.md`](./code/analysis/round4_counterparty_signal_report.md). The cleanest positive edge:
+Full report in [`analysis/round4/counterparty_signal_report.md`](./code/analysis/round4/counterparty_signal_report.md). The cleanest positive edge:
 
-- **Mark 67 buying VFE** has a positive forward return across the deep-dive horizons (`analysis/round4_mark_deep_dive/`).
+- **Mark 67 buying VFE** has a positive forward return across the deep-dive horizons (`analysis/round4/mark_deep_dive/`).
 - Other named counterparties (Mark 0–66, 68+) showed nothing consistent at the size, side, time-bucket, or product cuts I ran.
 
 ## Why I didn't ship the Mark-67 follow
