@@ -80,6 +80,30 @@ This is a third specific instance of the §0 meta-lesson ("game-fundamentals und
 
 If I'd internalized this on day one, the R1 ACO/IPR sizes would have been larger and the passive offsets tighter; the R3 HYDROGEL MM would have run at the top of its size plateau (or above it) rather than the conservative middle; and the R5 directional ship would have leaned harder into the take side instead of the imbalance-gated passive quoting. Most of those changes are visible in the backtests as a 10–20 % PnL improvement that I left on the floor because I was sizing for a world where every fill cost something.
 
+## 0f. Direction beats delegation — where I overrode AI / auto-tune output and where I didn't
+
+A meta-lesson related to §0–§0e: the AI/auto-tuner is a *force multiplier on whichever direction I point it*, not a substitute for the direction itself. The places where I explicitly *disagreed* with what the local backtester or LLM-default analysis was telling me to ship are the ones I'm most proud of in this writeup. The places where I deferred to it are the §0d "didn't ship" regrets.
+
+### Where I overrode and was right
+
+- **Round 2 — `final_strat_aco_max80_chunk1.py` rejection.** Local backtest 3-day PnL: **~785 k**, 87 % above my shipped recipe's ~420 k. A pure "ship-the-highest-PnL" auto-tuner — or an LLM optimizing on the backtester output — would have promoted this branch as the obvious ship. I rejected it on the third scan because the 1-lot child-order chunking pattern was clearly exploiting a local-matching-engine artifact that doesn't exist in the real exchange. **Real-submission PnL of the rejected branch: 27–30 k.** Confirmed call. The file is preserved as the canonical "do NOT ship" research artifact in `code/traders/round2/`. *Documented in `round_2.md` "Backtester-artifact branches (do NOT ship)" row.*
+- **Round 3 manual cluster-aware shift.** The clean Bayesian first-principles solve is **`(751, 836)`** at EV ≈ 84.33 per counterparty — the answer any AI/LLM converges to from the rules alone. I modeled the field's AI-cluster contamination explicitly (~55 % paste the textbook optimum; the next cohort of "AI-cluster-aware" teams shifts one step to `(775, 875)`), then went *two* steps past at **`(771, 861)`** to capture teams that ran the same Bayesian reasoning I did and stopped at the first shift. **World #7 on this challenge.** This result is the strongest evidence in the writeup that I directed the AI rather than the other way around.
+- **Round 3 P3R3 session-4.5 carry-over.** The "AI/prior wisdom" suggestion was to port the P3 R3 winning move (shift ITM strikes from IV-scalp to MR). I tested it across 8 variants in P4 and found it regressed by −25 k to −485 k — P4 microstructure differs from P3 (deep-ITM has 21-tick spread; OTM has vega < 1). Didn't ship. *Documented in `round_3.md` "What didn't work" item 5.*
+- **Round 3 IV-residual conservatization.** The `OPT_MR_THR` sensitivity showed a cliff between threshold 4 and 5 (`+249 k` at 5; `−542 k` at 3). An auto-tuner picking the peak would lock in 5 and ship. I read the cliff as overfitting risk and conservatized the final ship rather than chasing the next 50 k of backtest. *Documented in `round_3.md` "Threshold sensitivity is brutal" table.*
+
+### Where I deferred and shouldn't have
+
+- **Round 5 family-pair-trade overlay.** The local backtest delta said the directional ship beat the `ll_pair_*` variants on first-cut. I shipped directional. The pair-trade was the structurally correct answer (top teams shipped it; family-beta neutralization on a 50-product universe is *structurally* dominant). I let the auto-tuner's number override my first-principles judgment. See [§0d](#0d-i-had-the-right-structural-answers-and-didnt-ship-them).
+- **Round 3 v29 mirror.** Each shipping step beat the previous on backtest, so I shipped — letting the auto-tuner's gradient be the decision rule. v29 added 63 k bt for only 171 live. A conversion-ratio sanity check (which is *my* judgment, not the backtester's) would have rejected the layer. See [§4](#4-conversion-check-between-shipping-versions).
+
+### The pattern
+
+Overrides worked when I had a *first-principles reason* to disagree — backtester artifact, field-cluster contamination, microstructure differs from the prior year, threshold cliff signals overfitting. Deferrals failed when I let the local-backtest delta substitute for first-principles thinking.
+
+**Heuristic going forward**: *if the auto-tuner picks the highest-local-PnL variant and I can't articulate in one sentence why that variant is structurally correct (not just numerically higher), override it.* The auto-tuner optimizes the wrong objective by default; my job is to keep telling it what the right one is.
+
+A second pattern worth naming: **modeling where the AI/auto-tuner outputs will cluster — and pricing past that cluster — is itself an edge.** The R3 manual `(771, 861)` shift is the cleanest example, but the R2 manual `19/60/21` (one step past the AI-default 20 % Speed cluster) is the same move. In a world where every team has access to the same tooling, the edge is increasingly in modeling the *field's* tooling, not in having marginally better tooling yourself.
+
 ## 1. Local backtester PnL is not live PnL — and the gap is asymmetric across sleeve classes
 
 The single most expensive theme of my five rounds was misreading the backtest-to-live conversion ratio. Concretely:
