@@ -1,6 +1,30 @@
+"""
+Round 5 — 50-product sentiment-directional MM (shipped strategy).
+
+50 products across 10 themed families, per-product position limit 10. The trade
+is per-product directional bias (buy / sell), derived from the round-5 uplink
+transcript and product descriptions, executed as:
+
+  1. After ts >= 10_000 (skip first 1 % of day for the book to settle),
+     take aggressively up to a directional target of ±DIRECTIONAL_TARGET at
+     the touch.
+  2. Outside the taking band, post passive quotes inside the spread, with an
+     imbalance gate: suppress the ask if imb > +IMB_THR, suppress the bid if
+     imb < -IMB_THR.
+  3. Per-product limit is 10, so a DIRECTIONAL_TARGET of 6 leaves 4 units of
+     room above the target for passive-make on the same side and meaningful
+     capacity to lean into adverse fills.
+
+Sister strategy NOT shipped: ``ll_pair_base_561965.py`` (universal basket-MM,
+live PnL $561,965). See ``../../../round_5.md`` for why the directional
+version shipped instead.
+"""
+
 from datamodel import Order, OrderDepth, TradingState
 
+
 class Trader:
+    # ---------- universe -------------------------------------------------
     PRODUCTS = (
         "GALAXY_SOUNDS_DARK_MATTER",
         "GALAXY_SOUNDS_BLACK_HOLES",
@@ -54,6 +78,11 @@ class Trader:
         "SNACKPACK_RASPBERRY",
     )
     LIMITS = {product: 10 for product in PRODUCTS}
+
+    # ---------- side-bias dict ------------------------------------------
+    # Per-product directional bias from the round-5 uplink transcript /
+    # product descriptions. Manual classification — see ../../../round_5.md
+    # for the family-level reasoning.
     SIDE_BIAS = {
         "GALAXY_SOUNDS_BLACK_HOLES": "buy",
         "GALAXY_SOUNDS_DARK_MATTER": "buy",
@@ -106,15 +135,19 @@ class Trader:
         "UV_VISOR_RED": "buy",
         "UV_VISOR_YELLOW": "buy",
     }
-    DIRECTIONAL_TARGET = 6
-    TAKE_SIZE = 8
-    PASSIVE_SIZE = 4
-    IMPROVEMENT = 1
-    IMB_THR = 0.3
-    PURE_TAKER = False
 
+    # ---------- tunables -------------------------------------------------
+    DIRECTIONAL_TARGET = 6   # target ±position per product
+    TAKE_SIZE          = 8   # max units taken per tick
+    PASSIVE_SIZE       = 4   # passive quote size inside the spread
+    IMPROVEMENT        = 1   # ticks to improve the BBO when quoting passive
+    IMB_THR            = 0.3 # |imbalance| above this suppresses the adverse side
+    PURE_TAKER         = False  # if True, skip the passive layer entirely
+
+    # ---------- book helpers ---------------------------------------------
     @staticmethod
     def _best(depth):
+        """Best bid / ask + volumes, or None if either side is empty."""
         if not depth.buy_orders or not depth.sell_orders:
             return None
         bid = max(depth.buy_orders)
@@ -122,24 +155,29 @@ class Trader:
         return bid, int(depth.buy_orders[bid]), ask, -int(depth.sell_orders[ask])
 
     def _capacity(self, state, product):
+        """(buy_cap, sell_cap, current_pos, limit) for the product."""
         limit = self.LIMITS.get(product, 10)
-        pos = int(state.position.get(product, 0))
+        pos   = int(state.position.get(product, 0))
         return max(0, limit - pos), max(0, limit + pos), pos, limit
 
+    # ---------- main loop ------------------------------------------------
     def run(self, state: TradingState):
         result = {}
         for sym, od in state.order_depths.items():
             side = self.SIDE_BIAS.get(sym)
             if side is None:
-                continue
+                continue  # not in our bias dict — skip
+
             best = self._best(od)
             if best is None:
                 continue
             bid, bid_vol, ask, ask_vol = best
-            buy_cap, sell_cap, pos, limit = self._capacity(state, sym)
+            buy_cap, sell_cap, pos, _ = self._capacity(state, sym)
             orders = []
 
-            if state.timestamp >= 10000:
+            # 1) Directional take: ramp position toward ±DIRECTIONAL_TARGET
+            #    after the first 1 % of day.
+            if state.timestamp >= 10_000:
                 target = self.DIRECTIONAL_TARGET if side == "buy" else -self.DIRECTIONAL_TARGET
                 if side == "buy" and pos < target and buy_cap > 0:
                     qty = min(target - pos, buy_cap, ask_vol, self.TAKE_SIZE)
@@ -150,6 +188,7 @@ class Trader:
                     if qty > 0:
                         orders.append(Order(sym, bid, -qty))
 
+            # 2) Passive layer: inside-spread quotes with an imbalance gate.
             if not orders and not self.PURE_TAKER:
                 our_bid = bid + self.IMPROVEMENT
                 our_ask = ask - self.IMPROVEMENT
@@ -160,9 +199,9 @@ class Trader:
                     if tot > 0:
                         imb = (bid_vol - ask_vol) / tot
                         if imb > self.IMB_THR:
-                            quote_ask = False
+                            quote_ask = False   # book pressure up → don't sell into it
                         elif imb < -self.IMB_THR:
-                            quote_bid = False
+                            quote_bid = False   # book pressure down → don't buy into it
                     if quote_bid:
                         qty = min(buy_cap, self.PASSIVE_SIZE)
                         if qty > 0:
