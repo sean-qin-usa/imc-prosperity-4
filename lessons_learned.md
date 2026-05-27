@@ -8,11 +8,12 @@ Reading the top teams' published writeups in retrospect — Leo-Hawking, zainy-4
 
 The gap wasn't quant technique. The gap was **understanding the game** at a fundamental level. I understood general market patterns well enough to make stable returns in practice; I didn't think critically enough about how Prosperity's contest structure would penalize that and reward something else.
 
-Specifically, three things I knew in the abstract but didn't internalize until after the fact:
+Specifically, four things I knew in the abstract but didn't internalize until after the fact:
 
 1. **The contest is not a real market.** It's a 3-day-data point estimate against a curated seed, with IMC's proctors picking seeds adversarially to defang AI-assisted EV-maximization (§0b, §0c below).
 2. **Backtest-to-live conversion is asymmetric across sleeve classes and is the only number that matters at submission time** (§1, §4 below).
 3. **Structural strategy classes that are robust across seeds beat parameter-optimal strategies that are robust within one seed.** I knew this; I didn't ship it (§0d, §3 below).
+4. **Zero transaction fees flip which MM strategy class dominates.** Tight high-volume quoting is real-world unprofitable but contest-optimal here; I sized for the real world (§0e below).
 
 The teams that beat me ran the same playbook I did. They just had a sharper sense of the meta-game and shipped the structurally correct answer even when their local backtest didn't validate it. §0b through §7 are the concrete instances.
 
@@ -57,6 +58,23 @@ For at least three rounds I built or designed the structurally correct strategy,
 - **R3 three-way basis arb** — VFE / VEV_4000 / VEV_4500 are three parallel measurements of the same underlying with std < 1 tick. Documented, scoped, never built.
 
 The pattern is the same in every case: I had the right structural instinct, and I chose the safer, locally-validated answer. **The gap is conviction, not insight.** And conviction is what game-fundamentals understanding gives you — knowing that the local backtest isn't the live score, knowing that variance reduction is what beats an adversarial seed, knowing that "first-cut backtest delta" isn't the right rubric for ranking-not-returns contests. The teams that beat me didn't have better ideas. They had the discipline to ship their ideas under contest mechanics I now wish I'd modeled better.
+
+## 0e. No transaction fees changed which strategies dominate — I optimized for the wrong market
+
+Prosperity charges **zero transaction fees** on the algorithmic side. This is not how real markets work, and it changes which strategies are PnL-optimal in a way I didn't internalize until after the rounds closed.
+
+In a real market with maker/taker fees and spread costs, **tight high-frequency / high-volume market-making strategies are usually unprofitable** — every additional fill costs you the rebate-adjusted bid-ask, and you need a real edge per quote to overcome the cost basis. The strategies that survive real-world transaction costs are wider-spread, lower-frequency, more selective MM and structural carry — exactly the shape of what I shipped on rounds 1–3 (clipped-anchor MM, IPR drift carry, HYDROGEL stationary anchor with conservative inventory skew).
+
+In Prosperity's zero-fee regime, those constraints disappear. The optimal MM strategy is to **quote as tightly as possible and turn over as much volume as possible**, because every fill is pure spread capture with no cost basis. That's exactly what the top teams' shipped algorithms did. Their R1/R2 PnLs aren't higher because their fair-value models are smarter; they're higher because they spam tighter quotes at higher volume in a regime where there's no penalty for it.
+
+My strategies were tuned implicitly for a real-world fee structure — wider passive offsets, larger inventory skew, smaller post sizes than were strictly optimal. The result:
+
+- **Lower contest PnL** — confirmed across the R1–R3 backtest-to-live conversion checks.
+- **Strategies that would actually work on a real exchange** — which is not what the contest scored.
+
+This is a third specific instance of the §0 meta-lesson ("game-fundamentals understanding was the gap"). I optimized for stable, real-world-deployable trading and got penalized for it in a contest that explicitly rewards the opposite. The right move was to **explicitly model the cost structure of the contest as the starting point** and let the constraints (or lack of them) inform the strategy class — not to default to "what would I run on a real exchange" and hope the contest mechanics aligned.
+
+If I'd internalized this on day one, the R1 ACO/IPR sizes would have been larger and the passive offsets tighter; the R3 HYDROGEL MM would have run at the top of its size plateau (or above it) rather than the conservative middle; and the R5 directional ship would have leaned harder into the take side instead of the imbalance-gated passive quoting. Most of those changes are visible in the backtests as a 10–20 % PnL improvement that I left on the floor because I was sizing for a world where every fill cost something.
 
 ## 1. Local backtester PnL is not live PnL — and the gap is asymmetric across sleeve classes
 
