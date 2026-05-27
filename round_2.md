@@ -76,7 +76,7 @@ The actual decision is a clustering problem against the field:
 - "Nice number" humans cluster at 5/10/20/25/30/50/100.
 - Meme focal points: 42, 69, 73.
 
-I submitted **`19 / 60 / 21`** — one step past the contaminated `20 %` cluster. Across three plausible field priors (`mostly_nash`, `heavy_round_numbers`, `bimodal_dropout_sim`), this same split was the best response with worst-case regret of 0. Full sensitivity table and PnL grid in [`analysis/round2_manual/summary.md`](./code/analysis/round2_manual/summary.md).
+I submitted **`19 / 60 / 21`** — one step past the contaminated `20 %` cluster. Across three plausible field priors (`mostly_nash`, `heavy_round_numbers`, `bimodal_dropout_sim`), this same split was the best response with worst-case regret of 0. Full sensitivity table and PnL grid in [`analysis/round2/manual/summary.md`](./code/analysis/round2/manual/summary.md).
 
 ## Documented dead-ends (R2)
 

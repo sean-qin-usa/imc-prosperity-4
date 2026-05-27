@@ -70,7 +70,7 @@ fee        = round(investment^2 / 1,000,000)
 
 A `p %` allocation only has positive EV if the realized absolute move exceeds `p %`. So this is a sized-conviction problem against a prior on move magnitudes per product.
 
-My final submission, from [`analysis/round5_manual/README.md`](./code/analysis/round5_manual/README.md):
+My final submission, from [`analysis/round5/manual/README.md`](./code/analysis/round5/manual/README.md):
 
 | Product | Side | Allocation |
 |---|---|---:|
@@ -96,7 +96,7 @@ Total 100 %. Reasoning per product:
 - **Ashes of the Phoenix (−19 %)**: public backlash against sourcing — cleaner demand/PR shock than first pass suggested.
 - **Obsidian cutlery (−14 %)**: production halt with cross-facility contamination warning.
 
-This is a robust portfolio across two prior sets: a "Codex aggressive" prior that sized purely from headline strength, and a "Claude calibrated" prior anchored against P3 news-trading archetypes (where launches were often traps and serious safety/PR stories moved more). Worst-case EV across the two priors is 187.5 k; mean EV is 187.9 k. Full reconciliation in [`analysis/round5_manual/README.md`](./code/analysis/round5_manual/README.md).
+This is a robust portfolio across two prior sets: a "Codex aggressive" prior that sized purely from headline strength, and a "Claude calibrated" prior anchored against P3 news-trading archetypes (where launches were often traps and serious safety/PR stories moved more). Worst-case EV across the two priors is 187.5 k; mean EV is 187.9 k. Full reconciliation in [`analysis/round5/manual/README.md`](./code/analysis/round5/manual/README.md).
 
 ## What I'd change
 

@@ -103,9 +103,9 @@ The single biggest live-converting change in the ladder was `WARMUP=65` in v28 �
 
 Reserves uniform on the 51-point grid {670, 675, …, 920}. Fair sale at 920. Two-bid auction with second-bid penalty.
 
-The clean theoretical first-principles solve (under the assumption of no field clustering) is **`(751, 836)`**, EV ≈ 84.33 per gardener. Derivation: if `k` reserve levels are captured, `bid(k) = 666 + 5k`; optimizing `[k1 (254 − 5k1) + (k2 − k1)(254 − 5k2)] / 51` with `k1 ≈ k2/2` gives `k2 ≈ 33.87` → `k2 = 34, k1 = 17` → `b1 = 751, b2 = 836`. Full solver in [`analysis/round3_manual_from_scratch/`](./code/analysis/round3_manual_from_scratch/).
+The clean theoretical first-principles solve (under the assumption of no field clustering) is **`(751, 836)`**, EV ≈ 84.33 per gardener. Derivation: if `k` reserve levels are captured, `bid(k) = 666 + 5k`; optimizing `[k1 (254 − 5k1) + (k2 − k1)(254 − 5k2)] / 51` with `k1 ≈ k2/2` gives `k2 ≈ 33.87` → `k2 = 34, k1 = 17` → `b1 = 751, b2 = 836`. Full solver in [`analysis/round3/manual_from_scratch/`](./code/analysis/round3/manual_from_scratch/).
 
-Layered with field-clustering analysis (six-scenario prior sweep, AI-cluster-aware prior at {855, 870, 880, 890}), the recommended submission shifted to **`(775, 875)`** — EV 80.2, worst-case 71.5, sitting on a reserve cliff (next reserve up is 880) and capturing 21/26 b2-eligible reserves above all plausible avg_b2 p95 thresholds. Reasoning, MC sensitivity, six-scenario table in [`analysis/round3_manual/RECOMMENDATION.md`](./code/analysis/round3_manual/RECOMMENDATION.md).
+Layered with field-clustering analysis (six-scenario prior sweep, AI-cluster-aware prior at {855, 870, 880, 890}), the recommended submission shifted to **`(775, 875)`** — EV 80.2, worst-case 71.5, sitting on a reserve cliff (next reserve up is 880) and capturing 21/26 b2-eligible reserves above all plausible avg_b2 p95 thresholds. Reasoning, MC sensitivity, six-scenario table in [`analysis/round3/manual/RECOMMENDATION.md`](./code/analysis/round3/manual/RECOMMENDATION.md).
 
 I submitted `(775, 875)`.
 
