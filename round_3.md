@@ -95,7 +95,7 @@ The full session log of 30+ versions is in [`combined_ship_v*.py`](./code/trader
 | v28_warmup65 | 519,679 | 442,623 | 0.852× |
 | **v29_mirror (final)** | **582,866** | **442,794** | **0.760×** |
 
-The conversion ratio is the story. Earlier in the round I (incorrectly) read the test-result directory names as evidence that backtest *under-estimated* live — that was a misread; the actual relationship is the opposite, and I've recorded it as a hard lesson in [`feedback_citadel_overconverts_live.md`](./code/feedback_citadel_overconverts_live.md). Citadel-class sleeves under-convert vs jmerle backtest; the jmerle backtest should be treated as an upper bound, not a lower bound.
+The conversion ratio is the story. Earlier in the round I (incorrectly) read the test-result directory names as evidence that backtest *under-estimated* live — that was a misread; the actual relationship is the opposite. Citadel-class sleeves under-convert vs jmerle backtest; the jmerle backtest should be treated as an upper bound, not a lower bound.
 
 The single biggest live-converting change in the ladder was `WARMUP=65` in v28 — a one-knob retune that added 3 k backtest and 15,482 live. Single-knob retunes can multiply 5× bt-to-live when they fix a real timing issue. Mirror-style cap tweaks behave the opposite way.
 
