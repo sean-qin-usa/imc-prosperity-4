@@ -1,6 +1,16 @@
 # IMC Prosperity 4 — Writeup
 
-This repo is a writeup of my entry in **IMC Prosperity 4** (the 2026 edition, run April 14–30 2026). It documents what I built, what worked, what didn't, and what I'd do differently. Source code lives in the [code/](./code) tree (a snapshot of the working repo); the per-round writeups in this folder explain the reasoning.
+This repo is a writeup of my entry in **IMC Prosperity 4** (the 2026 edition, run April 14–30 2026), where I placed at rank 251 (23k+ teams, many of whom dropped out after round 1). It documents what I built, what worked, what didn't, and what I'd do differently. Source code lives in the [code/](./code) tree (a snapshot of the working repo); the per-round writeups in this folder explain the reasoning.
+
+## Start here
+
+| If you want… | Go to |
+|---|---|
+| The actual files I submitted, one per round | [`submissions/`](./submissions/) |
+| What I built and why, round by round | [`round_1.md`](./round_1.md) → [`round_5.md`](./round_5.md) |
+| What I'd change — the strongest pitch | [`lessons_learned.md`](./lessons_learned.md) |
+| Background and limiting factors | [`context.md`](./context.md) |
+| The full code snapshot (raw working repo) | [`code/`](./code/) |
 
 ## Start here
 
