@@ -2,20 +2,34 @@
 
 These are the things I'd actually change if I ran IMC Prosperity again, ordered roughly by how much PnL I think they were worth. References to other teams' published writeups are cited explicitly; their work is their work.
 
-## 0. Knowledge wasn't the gap. Game-fundamentals understanding was.
+## 0. Biggest weakness: I never stopped to think from first principles at every step.
 
-Reading the top teams' published writeups in retrospect — Leo-Hawking, zainy-477, rmtf1111, Deepjot Grewal, Alex Stoeveken — there isn't a technique on their lists that I didn't already know. Black-Scholes on a voucher chain, IV-residual mean reversion, microprice fair value, walked-spread rebound, family-pair-trade overlays, rank-bid manual challenges, generative-process classification — all of that was in my heads-up notes before round 1. I built the [`SIGNALS_PLAYBOOK.md`](./code/SIGNALS_PLAYBOOK.md) precisely to enumerate those approaches up front.
+Reading the top teams' published writeups in retrospect — Leo-Hawking, zainy-477, rmtf1111, Deepjot Grewal, Alex Stoeveken — there isn't a technique on their lists I didn't already know. Black-Scholes on a voucher chain, IV-residual mean reversion, microprice fair value, walked-spread rebound, family-pair-trade overlays, rank-bid manual challenges, generative-process classification — all of that was in my heads-up notes before round 1, enumerated in [`SIGNALS_PLAYBOOK.md`](./code/SIGNALS_PLAYBOOK.md). I understood, *conceptually and execution-wise*, how to do every task this competition required.
 
-The gap wasn't quant technique. The gap was **understanding the game** at a fundamental level. I understood general market patterns well enough to make stable returns in practice; I didn't think critically enough about how Prosperity's contest structure would penalize that and reward something else.
+What I never did — not once, in five rounds — was **force myself to stop, step back, and reframe from first principles at every single decision point**. "Why am I sizing this way? Why am I using this fair value? What are the implicit assumptions behind this default? Do those assumptions actually hold in *this contest*?" Every choice I made was implicitly anchored to "what would I run on a real exchange" rather than "what does this specific contest, with its specific mechanics, actually reward."
 
-Specifically, four things I knew in the abstract but didn't internalize until after the fact:
+**The single sharpest illustration is the no-fees decision bias.** Prosperity charges zero transaction fees on the algorithmic side. In a real market, tight high-frequency / high-volume MM is structurally unprofitable — the spread you capture doesn't cover the transaction cost. Every wider passive offset, larger inventory skew, smaller post size, more conservative inventory turn I chose was *implicitly correct for a fee-bearing exchange*. But Prosperity isn't a fee-bearing exchange. The optimal MM strategy here is to **quote as tightly as humanly possible and turn over as much volume as possible**, because every fill is pure spread capture. The top teams shipped exactly that. My internalized "good trader" instincts were calibrated for the wrong market — and I never once stopped, on any of the five rounds, to ask "wait, do the assumptions behind my default sizing actually hold in this contest?" If I had asked that question even *once* on day one of round 1, the entire competition would have run differently. This single unexamined assumption is the largest source of PnL I left on the floor across all five rounds. §0e is the detailed write-up; this is where I want it called out as load-bearing.
 
-1. **The contest is not a real market.** It's a 3-day-data point estimate against a curated seed, with IMC's proctors picking seeds adversarially to defang AI-assisted EV-maximization (§0b, §0c below).
-2. **Backtest-to-live conversion is asymmetric across sleeve classes and is the only number that matters at submission time** (§1, §4 below).
-3. **Structural strategy classes that are robust across seeds beat parameter-optimal strategies that are robust within one seed.** I knew this; I didn't ship it (§0d, §3 below).
-4. **LARGEST ONE: ZERO TRANSACTION FEES flip which MM strategy class dominates.** Tight high-volume quoting as used by many top competitors is simply real-world unprofitable (and disregarded by me internally when making conscious final ships) but contest-optimal here; I sized for the real world instead of making decisions based on the challenge at hand(§0e below).
+The same pattern (assumption inherited from real-world quant work, not re-examined under contest mechanics) shows up in every other instance below:
 
-The teams that beat me ran the same general playbook I did. They just had a sharper sense of the meta-game and shipped the structurally correct answer even when their local backtest didn't validate it. §0b through §7 are the concrete instances.
+1. **3-day data isn't a sample, it's a curated point estimate** (§0c) — I treated local backtest like it sampled the live PnL distribution. First-principles pause would have asked "is one realized seed against three days informative about another seed?" The answer is no, and the right response is structural strategies robust across seeds.
+2. **The proctors pick adversarial seeds** (§0b) — the R4 Aether Crystal manual is an EV-optimal Black-Scholes answer against an explicitly AI-resistant seed choice. First-principles pause would have asked "what kind of seed would IMC pick to make my answer wrong?" — and led to variance-aware sizing.
+3. **Structural edge vs first-cut backtest delta** (§0d, §3) — the R5 family-pair-trade overlay didn't beat my directional ship on first-cut backtest, so I rejected it. First-principles pause would have asked "what kind of edge does this strategy class have, and is a first-cut backtest the right evaluator for variance reduction?"
+4. **Backtest-to-live conversion is what's scored** (§1, §4) — same pattern; the local number isn't the contest number.
+
+The meta-lesson is not any one of these. It's that **I had the knowledge and the tools to do every one of these analyses correctly, and never made myself stop to do them**. The teams that beat me didn't have better quant chops. They had the discipline to pause and audit at every step.
+
+### Practical implication: harder cutoffs, earlier audits
+
+48-hour rounds are tight, and the easy default is "execute against the playbook, trust the local backtest, ship at the wire." That's how I ran every round. Next time:
+
+- **Ship cutoff well before the 50 %-time mark.** For a 48-hour round, that's ~16–18 hours of building, not 24. The back ~30 hours are *audit only*. The R3 variant ladder (100+ versions of `combined_ship_v*.py`) is the cleanest counter-example — every back-half session of "improve the backtest by 5 %" was a session I should have spent re-examining whether the strategy actually matched the contest mechanics.
+- **Mandatory first-principles audit checklist at every cutoff:** fee assumptions, seed-of-the-day robustness, conversion-ratio sanity, cross-sleeve interaction, the explicit list of inherited-from-real-world defaults that might not hold here. Written down, ticked off, not skimmed.
+- **The forced question at every shipping decision: "what assumption from real-world trading am I making here that the contest might not honor?"** If I had asked this at the top of every coding session, the no-fees decision bias would have surfaced on day one of round 1.
+
+### What I'm proud of, separately
+
+To be clear about what this lesson is and isn't: I'm proud of what I shipped. Every round had positive expectancy, every manual had a defensible answer, and I built and identified the structurally correct strategies — including some the top teams shipped that I had on disk and didn't trust enough to ship myself. The gap between rank-251 and a top-30 finish wasn't quant chops or technique. It was the discipline to pause, step back, and audit from first principles at every step. That discipline is what I'd take into Prosperity 5.
 
 ## 0b. Variance management beats expected-value maximization on a single realized path
 
@@ -51,7 +65,7 @@ A separate consequence: stable-returns approaches that work in practice don't ne
 
 This is the one that stings most, and it's the practical face of §0–§0c.
 
-For the final three rounds, I discovered or literally built each of the competition's most optimal strategies, yet shipped the safer, lower-conviction one instead because the first-cut local backtest didn't validate the better one:
+For at least three rounds I built or designed the structurally correct strategy, and shipped the safer, lower-conviction one instead because the first-cut local backtest didn't validate the better one:
 
 - **R5 family-pair-trade overlay** — `traders/round5/ll_pair_*`. Top teams I've since read up on shipped exactly this structure. Family-beta neutralization on a 50-product universe with 10 thematic clusters is *structurally* the dominant approach; its edge shows up as variance reduction, not as a higher first-moment PnL on a single seed. The first-cut backtest is the wrong evaluation tool for a strategy whose advantage is variance reduction. I built it, tested it, rejected it on a backtest delta, and shipped the safer directional ship instead.
 - **R4 regime-gated VFE sleeve** — identified the cross-sleeve interaction problem during the round (Mark-67 follow fighting the existing MR sleeve). Designed the unified-with-regime-gate fix. Didn't have the bandwidth or the conviction to ship it under the time pressure (see [`round_4.md`](./round_4.md)).
@@ -74,7 +88,7 @@ My strategies were tuned implicitly for a real-world fee structure — wider pas
 
 This is a third specific instance of the §0 meta-lesson ("game-fundamentals understanding was the gap"). I optimized for stable, real-world-deployable trading and got penalized for it in a contest that explicitly rewards the opposite. The right move was to **explicitly model the cost structure of the contest as the starting point** and let the constraints (or lack of them) inform the strategy class — not to default to "what would I run on a real exchange" and hope the contest mechanics aligned.
 
-If I'd internalized this on day one, the R1 ACO/IPR sizes would have been larger and the passive offsets tighter; the R3 HYDROGEL MM would have run at the top of its size plateau (or above it) rather than the conservative middle; and the R5 directional ship would have leaned harder into the take side instead of the imbalance-gated passive quoting. Most of those changes are visible in the backtests as a 10–20 % PnL improvement that I left on the floor because I was sizing for a world where every fill cost something, without fully stopping to think about why.
+If I'd internalized this on day one, the R1 ACO/IPR sizes would have been larger and the passive offsets tighter; the R3 HYDROGEL MM would have run at the top of its size plateau (or above it) rather than the conservative middle; and the R5 directional ship would have leaned harder into the take side instead of the imbalance-gated passive quoting. Most of those changes are visible in the backtests as a 10–20 % PnL improvement that I left on the floor because I was sizing for a world where every fill cost something.
 
 ## 1. Local backtester PnL is not live PnL — and the gap is asymmetric across sleeve classes
 
