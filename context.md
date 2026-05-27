@@ -14,7 +14,7 @@ A short, honest note on the constraints around this entry. These are context, no
 
 A documented record of a real solo run at a 18 k-team algorithmic-trading competition under finals-week constraints. The strategies are honest, the backtest numbers are real, and the mistakes are catalogued.
 
-The point of the writeup is not the placement — it's the reasoning. The bulk of the value to a reader (or a hiring manager) is in the [lessons-learned page](./lessons_learned.md) and the per-round generative-process reads.
+The point of the writeup is not the placement — it's the reasoning. The bulk of the value to a reader (or a hiring manager - if that's you, hi!) is in the [lessons-learned page](./lessons_learned.md) and the per-round generative-process reads.
 
 ## What I'm proud of
 
