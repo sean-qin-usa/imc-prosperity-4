@@ -27,7 +27,7 @@ This is the writeup of my IMC Prosperity 4 entry (2026 edition, run April 14–3
 
 I treated every round as a generative-process problem from first principles, not a tuning exercise. Before hunting for any signal, I'd force myself to answer one question: *how could the simulator have produced this product's time series?* The shortlist of possible stories — stationary anchor, linear drift, random walk, mean-reverting spread, deterministic function of a driver, simulated bot, external driver plus noise — tells you what features matter and which strategies are even valid. Most of my big wins came from getting that question right. Most of my big losses came from skipping it.
 
-The biggest miss in that pattern: I never asked the question for the zero-trading-fees regime. That single oversight (sizing my MM strategies for a fee-bearing exchange that doesn't exist here) is what most hurt my final result. I'm proud of how I performed overall, but that's the one I think about most.
+The biggest miss in that pattern: I knew the contest charged zero transaction fees, but I never stress-tested what that implied for sizing. My MM defaults — wider passive offsets, more conservative inventory skew, smaller post sizes — were carried over implicitly from real-world quant work where every fill costs you the rebate-adjusted bid-ask. Under zero fees those defaults are too tight; the optimal MM is wider in volume, narrower in spread, more aggressive. That single un-audited assumption is what most hurt my final result. I'm proud of how I performed overall, but it's the one I think about most.
 
 The full framework, including the cross-round signal-hunting checklist, is in [SIGNALS_PLAYBOOK.md](./code/SIGNALS_PLAYBOOK.md).
 
