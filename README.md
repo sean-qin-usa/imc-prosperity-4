@@ -2,8 +2,19 @@
 
 This repo is a writeup of my entry in **IMC Prosperity 4** (the 2026 edition, run April 14–30 2026), where I placed at rank 251 (23k+ teams, many of whom dropped out after round 1). It documents what I built, what worked, what didn't, and what I'd do differently. Source code lives in the [code/](./code) tree (a snapshot of the working repo); the per-round writeups in this folder explain the reasoning.
 
+## Start here
+
+| If you want… | Go to |
+|---|---|
+| The actual files I submitted, one per round | [`submissions/`](./submissions/) |
+| What I built and why, round by round | [`round_1.md`](./round_1.md) → [`round_5.md`](./round_5.md) |
+| What I'd change — the strongest pitch | [`lessons_learned.md`](./lessons_learned.md) |
+| Background and limiting factors | [`context.md`](./context.md) |
+| The full code snapshot (raw working repo) | [`code/`](./code/) |
+
 ## Quick links
 
+- **[Final submissions per round](./submissions/)** — exact algorithm files shipped, with one-line summaries per round
 - [Round 1 — Tutorial-class MM + intraday path anchor](./round_1.md)
 - [Round 2 — Drift-carry, MAF auction, manual budget split](./round_2.md)
 - [Round 3 — HYDROGEL anchor MM + VEV voucher chain](./round_3.md)
@@ -29,14 +40,16 @@ I am not claiming this work cracked the leaderboard. It didn't. The [context pag
 ```
 .
 ├── README.md                 ← you are here
-├── round_1.md ... round_5.md ← per-round writeups
-├── lessons_learned.md
-├── context.md
+├── round_1.md ... round_5.md ← per-round writeups (reasoning, results, what I'd change)
+├── lessons_learned.md        ← what I'd take into Prosperity 5
+├── context.md                ← finals overlap, solo-from-day-one, what I'm proud of
+├── submissions/              ← the exact algorithm file shipped on each round
+│   ├── README.md             ← per-round summary table with results & manual submissions
+│   └── round_1__*.py … round_5__*.py
 └── code/                     ← snapshot of the working repo
-    ├── traders/              ← per-round strategy files
+    ├── traders/              ← per-round strategy files (full ablation ladder)
     ├── analysis/             ← signal scans, manual-challenge work
     ├── tools/                ← backtesters, calibration scripts
-    ├── data/                 ← downloaded round CSVs (mirror)
-    ├── gen/                  ← backtest outputs
+    ├── documents/            ← competition info
     └── SIGNALS_PLAYBOOK.md   ← cross-round signal checklist
 ```
