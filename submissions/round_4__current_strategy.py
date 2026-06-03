@@ -1,6 +1,15 @@
 """
 Round 4 current strategy — seeded from Round 3 combined SHIP v31.
 
+POST-COMP CORRECTION (added after the round closed)
+    The inherited R3 history below repeats "v25 ... 525,560 live = 1.057x
+    bt-to-live" as a live precedent. This was a mid-competition misreading of
+    an IMC leaderboard cumulative score as a per-strategy PnL. The corrected
+    v25 live PnL is 425,560 (0.856x bt-to-live), consistent with round_3.md
+    and lessons_learned.md §4. The R4 section itself uses the post-correction
+    v30 conversion (0.857x) on live 446,042, which is consistent with the
+    corrected reading. Read the R3 history block accordingly.
+
 Round 4 official deltas:
 - Products and limits are unchanged from Round 3.
 - VEV live time-to-expiry is now 4 days.

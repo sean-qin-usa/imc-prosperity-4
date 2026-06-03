@@ -1,6 +1,15 @@
 """
 Round 3 combined SHIP v28 — 2026-04-25 (session 9 late).
 
+POST-COMP CORRECTION (added after the round closed)
+    The "v25 ... 525,560 live = 1.057x bt-to-live" line repeated below was a
+    mid-competition misreading of an IMC leaderboard cumulative score as a
+    per-strategy PnL. The corrected v25 live PnL is 425,560 (0.856x bt-to-live),
+    consistent with the conversion table in round_3.md and the +17k v25 → v29
+    live aggregate in lessons_learned.md §4. The 525,560 references below are
+    preserved as the reasoning that was active at submission time, not as the
+    post-comp truth. Read the docstring body with that in mind.
+
 DELTA vs 427141 (the 'v27' shipped, 516,679 bt): adds Citadel-style
 directional mirror on VEV_4000 and VEV_4500 (BS delta=1.000 ⇒ track
 VFE 1:1; basis mean≈0, sd 0.83 over 3 days). Same `vfe_side` flag
