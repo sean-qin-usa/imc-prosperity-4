@@ -25,14 +25,14 @@ A layered basket / family-pair-trade overlay built up by adding one signal at a 
 | v3 | + category-basket-z overlay (Robots/UV/Translators) | $510 k | $170 k |
 | v4 | + per-leg-mid-z on 5 snack-pack legs | $556 k | $185 k |
 | **v5** | per-leg-mid-z on 13 robust mean-reverters | **$693 k** | **$231 k** |
-| **v5_safe** (`ll_pair_base_561965`) | v5 + PEBBLES Σmid kill-switch | same as v5 in bt | **counterfactual $561,965** |
+| **v5_safe** (`ll_pair_base_561965`) | v5 + PEBBLES Σmid kill-switch | same as v5 in bt | **cumulative live $561,965** |
 
-The `_561965` in the filename is the **counterfactual** live PnL — what this strategy *would have scored* on the R5 live day per IMC's official-bundle replay. **It was not shipped.** The directional `final_strategy.py` was the live R5 submission; this basket-MM variant is preserved as evidence that the structurally correct strategy was built and tested but not pushed. See [`../../../lessons_learned.md` §0d](../../../lessons_learned.md) on why I didn't ship it.
+The `_561965` in the filename is the cumulative live PnL — what this basket-MM variant scored when run live during R5. **It was not the final R5 ship.** The directional `final_strategy.py` was the file I selected as my final R5 submission; this basket-MM variant is preserved as evidence that the structurally correct strategy was built and run during R5. See [`../../../lessons_learned.md` §0d](../../../lessons_learned.md) on why I didn't select it as the final ship.
 
 The `ll_pair_variant_v1.py` through `v5_pair_plus_xl.py` files were modification probes off v5_safe. All small regressions on the local backtest — almost certainly a calibration issue rather than a strategy issue.
 
 ## Files in this folder
 
 - **[`final_strategy.py`](./final_strategy.py)** — shipped directional MM.
-- **[`ll_pair_base_561965.py`](./ll_pair_base_561965.py)** — basket-MM base ship (v5_safe). The `_561965` in the filename is the counterfactual live PnL per IMC's official-bundle replay; this variant was not the shipped R5 algorithm.
+- **[`ll_pair_base_561965.py`](./ll_pair_base_561965.py)** — basket-MM base ship (v5_safe). The `_561965` in the filename is the cumulative live PnL from running this variant during R5; it was not the file selected as the final R5 ship.
 - **[`ll_pair_variant_v1.py`](./ll_pair_variant_v1.py) … [`v5_pair_plus_xl.py`](./ll_pair_variant_v5_pair_plus_xl.py)** — 5 variants on the basket base. Brief result notes in [`../../../round_5.md`](../../../round_5.md).

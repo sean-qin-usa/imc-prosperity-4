@@ -15,11 +15,10 @@ transcript and product descriptions, executed as:
      room above the target for passive-make on the same side and meaningful
      capacity to lean into adverse fills.
 
-Sister strategy NOT shipped: ``ll_pair_base_561965.py`` (universal basket-MM).
-The ``_561965`` in that filename is the counterfactual live PnL per IMC's
-official-bundle replay — what the basket-MM would have scored if shipped on
-R5, not an actual live submission result. See ``../../../round_5.md`` for
-why the directional version shipped instead.
+Sister strategy ``ll_pair_base_561965.py`` (universal basket-MM) was run
+live during R5 and accumulated $561,965 cumulative live PnL (encoded in
+the filename). It was not selected as the final R5 ship — this directional
+version was. See ``../../../round_5.md`` for the reasoning.
 """
 
 from datamodel import Order, OrderDepth, TradingState
