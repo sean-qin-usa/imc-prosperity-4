@@ -38,7 +38,7 @@ The side-bias dict is mechanical: read each product's news / description, classi
 
 `ll_pair_base_561965.py` and its variants tested a basket / family-pair MM overlay where the directional-bias signal was rotated into long-short pairs within each themed family. The intent was to neutralize family-level beta (e.g. a panel-supply-glut story should hit all panels; pairing the two strongest sells against the one buy isolates the per-product alpha).
 
-The base ship (v5_safe) was built by layering one signal at a time. Backtest progression on days 2/3/4 of the supplied data, with the live PnL on the actual round:
+The base ship (v5_safe) was built by layering one signal at a time. Backtest progression on days 2/3/4 of the supplied data:
 
 | Stage | Signal added | Backtest 3-day | Per-day |
 |---|---|---:|---:|
@@ -47,7 +47,9 @@ The base ship (v5_safe) was built by layering one signal at a time. Backtest pro
 | v3 | + category-basket-z overlay (Robots/UV/Translators) | $510 k | $170 k |
 | v4 | + per-leg-mid-z on 5 snack-pack legs | $556 k | $185 k |
 | **v5** | per-leg-mid-z on 13 robust mean-reverters | **$693 k** | **$231 k** (+72.6 % vs v1) |
-| **v5_safe** (`ll_pair_base_561965`) | v5 + PEBBLES Σmid kill-switch | same as v5 in bt | **live $561,965** |
+| **v5_safe** (`ll_pair_base_561965`) | v5 + PEBBLES Σmid kill-switch | same as v5 in bt | **counterfactual $561,965** |
+
+**Important framing:** the $561,965 figure on `ll_pair_base_561965` is the counterfactual live PnL — what this strategy *would have scored* on the R5 live day per IMC's official-bundle replay. It is **not** what I actually shipped or scored. The shipped R5 algorithm was [`final_strategy.py`](./code/traders/round5/final_strategy.py) (directional sentiment MM), not this basket-MM variant. The $561k number is in the writeup as evidence that the structurally correct strategy was built and tested but not pushed to the live submission. The cost of that call is exactly the gap I document in [lessons §0d](./lessons_learned.md#0d-i-had-the-right-structural-answers-and-didnt-ship-them).
 
 The "robust 13" legs in v5 came from turning on the per-leg z-overlay one product at a time, measuring per-day uplift across all three supplied days, and keeping legs with positive contribution on all three (full ablation table in the file docstring; ~+$183 k uplift vs v3). The PEBBLES kill-switch in v5_safe defends against the empirical invariant `Σmid_pebbles ≈ 50,000` breaking live — it never triggered in backtest.
 
