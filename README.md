@@ -1,6 +1,6 @@
 # IMC Prosperity 4 — Writeup
 
-This is the writeup of my IMC Prosperity 4 entry (2026 edition, run April 14–30, 2026), competed solo from day one. The repo covers what I built, what worked, what didn't, and what I'd do differently. Source code lives in [code/](./code) (a snapshot of my working repo); the per-round writeups in this folder cover the reasoning. The piece I'm proudest of is the round-3 manual challenge — the Bio-Pod bid finished world #7. Writeup in [round_3.md](./round_3.md) and [context.md](./context.md).
+This is the writeup of my IMC Prosperity 4 entry (2026 edition, run April 14–30, 2026), competed solo from day one. The repo covers what I built, what worked, what didn't, and what I'd do differently. Source code lives in [code/](./code) (a snapshot of my working repo); the per-round writeups in this folder cover the reasoning.
 
 ## Start here
 
